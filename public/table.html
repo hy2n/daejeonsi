@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <title>대전시</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="https://daejeonsi.nanu.cc/assets/logo.png">
+  <style>
+@charset "utf-8";
+
+@font-face {
+  font-family: 'SUITE-Regular';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+}
+
+#wrap {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.none {
+  display: none;
+}
+
+* {
+  text-decoration: none;
+  font-family: 'SUITE-Regular';
+  padding: 0;
+  margin: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-use-select: none;
+  user-select: none;
+}
+
+a {
+  color: aliceblue;
+}
+
+#logo {
+  max-height: 50px;
+  margin-left: 32px;
+  float: left;
+}
+
+#logI {
+  margin-right: 32px;
+}
+
+header {
+  background: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  width: 100%;
+}
+
+section {
+  display: block;
+  justify-content: space-between;
+  align-items: center;
+  height: 550px;
+  position: sticky;
+  margin : 0 auto;
+  overflow: hidden;
+}
+
+.page {
+  top: 5%;
+  width: 100%;
+  height: inherit;
+  overflow: hidden;
+  font-size: 2.5em;
+  position: relative;
+  align-items: center;
+  text-align: center;
+}
+
+.table-wrapper{
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  box-sizing: border-box;
+  padding-top: 10%;
+  font-size: 18px;
+  background: linear-gradient(135deg, rgba(0, 0, 179, 0.3), rgba(86, 86, 255, 0.8));
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
+}
+
+th {
+  height: 60px;
+}
+
+td {
+  height: 70px;
+}
+
+textarea {
+  resize: none;
+}
+
+caption {
+  font-size: 26px;
+}
+
+.memo {cursor: text;}
+.memo:hover {color: greenyellow;}
+#memoSel {display: none; background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.4)); position: absolute; width: 200px; height: 100px;}
+#memoSel > * {float: left;}
+#cancle {float: right; color: black; width: 24px; cursor: pointer;}
+#cancle:hover {background-color: red;}
+#selContent {margin-left: 5px; margin-top: 2px;}
+
+@media screen and (max-width: 312px) {
+  .none {display: block;}
+  #wrap {display: none;}
+}
+  </style>
+</head>
+<body>
+  <div class="none">
+    <h1>이런!</h1>
+    <h2>매우 특이한 스크린을 사용하는 것을 감지했습니다.</h2>
+    <h4>크기를 정상적으로 바꿔주세요.</h4>
+  </div>
+  <div id="wrap">
+    <header>
+      <a href="https://daejeonsi.nanu.cc"><img id="logo" src="https://daejeonsi.nanu.cc/assets/DJS_LOGO_WIDE.png"></a>
+      <a href="https://daejeonsi.nanu.cc/me" id="logI">마이페이지</a>
+    </header>
+    <section>
+      <div class="page">
+        <div class="table-wrapper">
+          <table>
+            <caption><b>오늘의 시간표</b></caption>
+            <thead>
+              <tr>
+                <th width="80px">교시</th>
+                <th width="60px">과목</th>
+                <th width="140px">전달사항</th>
+                <th width="120px">메모</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1교시</td>
+                <td>음악</td>
+                <td>기악수행평가 실시</td>
+                <td class="memo" onclick="sel(0)">NaN</td>
+              </tr>
+              <tr>
+                <td>2교시</td>
+                <td>음악</td>
+                <td>기악수행평가 실시</td>
+                <td class="memo" onclick="sel(1)">NaN</td>
+              </tr>
+              <tr>
+                <td>3교시</td>
+                <td>음악</td>
+                <td>기악수행평가 실시</td>
+                <td class="memo" onclick="sel(2)">NaN</td>
+              </tr>
+              <tr>
+                <td>4교시</td>
+                <td>음악</td>
+                <td>기악수행평가 실시</td>
+                <td class="memo" onclick="sel(3)">NaN</td>
+              </tr>
+              <tr>
+                <td>5교시</td>
+                <td>창체</td>
+                <td>없음</td>
+                <td class="memo" onclick="sel(4)">NaN</td>
+              </tr>
+            </tbody>
+        </div>
+      </div>
+      <div id="memoSel">
+        <div id="cancle" onclick="cancle()">X</div>
+        <div id="selContent">
+          <input id="title" type="text" oninput="update()" size="20" placeholder="제목">
+          <br>
+          <textarea id="info" oninput="update()" placeholder="내용" cols="19" rows="4"></textarea>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+    let memoView = document.getElementsByClassName("memo");
+    let memoTitle = document.getElementById("title");
+    let memoInfo = document.getElementById("info");
+    let memoSel = document.getElementById("memoSel");
+    var select = -1;
+    var memoData = [["음악최고", ""], ["음악최고음악최고", ""], ["음악최고음악최고음악최고", ""], ["음악최고음악최고음악최고음악최고", ""], ["오늘은 의무귀가", ""]]
+
+    function show(id){
+      document.getElementById(id).style.display = "block";
+    }
+    function hide(id){
+      document.getElementById(id).style.display = "none";
+    }
+
+    function loadMemo(){
+      var temp;
+      for (var i = 0; i < 5; i++){
+        temp = memoData[i][0];
+        if (memoData[i][0].length > 14){
+          temp = memoData[i][0].slice(0,12)+"...";
+        }
+        memoView[i].innerHTML = temp;
+      }
+    }
+
+    function sel(n){
+      select = n;
+      memoTitle.value = memoData[select][0];
+      memoInfo.value = memoData[select][1];
+      show("memoSel");
+    }
+
+    function cancle(){
+      hide("memoSel");
+      loadMemo();
+    }
+
+    function update(){
+      memoData[select][0] = memoTitle.value;
+      memoData[select][1] = memoInfo.value;
+    }
+
+    document.addEventListener("mousemove", function(e){
+      if (memoSel.style.display == "none"){
+        memoSel.style.left = (e.clientX-200) + "px";
+        memoSel.style.top = (e.clientY-100) + "px";
+      }
+    })
+
+    loadMemo();
+  </script>
+</body>

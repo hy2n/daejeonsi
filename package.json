@@ -1,0 +1,15 @@
+{
+  "name": "daejeonsi",
+  "version": "1.0.0",
+  "description": "대덕소마고 대신 전해주는 시간표 (대전시)",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
