@@ -162,9 +162,9 @@ label > p {
       <div class="page">
         <div class="signup-wrapper">
             <h2 id="signupT">Sign Up</h2>
-            <form method="post" action="https://daejeonsi.nanu.cc/api_register" id="signup-form">
-              <input type="text" name="userID" required placeholder="StudentID ex)1101">
-              <input type="password" name="userPassword" required placeholder="Password">
+            <form method="post" action="/api_join" id="signup-form">
+              <input type="text" id="id" name="id" required placeholder="StudentID ex)1101">
+              <input type="password" id="password" name="password" required placeholder="Password">
               <input type="submit" value="Sign Up">
             </form>
             <p id="ask">이미 계정이 있다면?</p>

@@ -162,9 +162,9 @@ label > p {
       <div class="page">
         <div class="login-wrapper">
             <h2 id="logT">Log in</h2>
-            <form method="post" action="https://daejeonsi.nanu.cc/api_register" id="login-form">
-              <input type="text" name="userID" required placeholder="StudentID ex)1011">
-              <input type="password" name="userPassword" required placeholder="Password">
+            <form method="post" action="/api_login" id="login-form">
+              <input type="text" id="id" name="id" required placeholder="StudentID ex)1011">
+              <input type="password" id="password" name="password" required placeholder="Password">
               <input type="submit" value="Log in">
             </form>
             <p id="ask">계정이 없으신가요?</p>
