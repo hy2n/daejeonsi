@@ -6,7 +6,7 @@ const path = require('path');
 const bodyParser= require('body-parser');
 const app = express();
 const port = 3000;
-//mysqlpassword
+//mysqlpassword8
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.json());
 app.use(cookieParser());
