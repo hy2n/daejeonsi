@@ -21,7 +21,7 @@ const test = async () => {
     // 2학년 4반 화요일 3교시 시간표
     console.log(result[1][4][1][2]);
     
-    console.log(await timetable.getClassTime());
+    console.log(result[1][4][1][2].teacher);
   };
   
   test();
