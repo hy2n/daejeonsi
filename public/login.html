@@ -161,8 +161,9 @@ label > p {
     <section>
       <div class="page">
         <div class="login-wrapper">
-            <h2 id="logT">Log in</h2>
-            <form method="post" action="/api_login" id="login-form">
+            <h2 id="logT">가입</h2>
+            <form method="post" action="/api_join" id="login-form">
+              <input type="text" id="username" name="username" required placeholder="Username">
               <input type="text" id="id" name="id" required placeholder="StudentID ex)1011">
               <input type="password" id="password" name="password" required placeholder="Password">
               <input type="submit" value="Log in">

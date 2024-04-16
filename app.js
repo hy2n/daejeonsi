@@ -6,10 +6,11 @@ const path = require('path');
 const bodyParser= require('body-parser');
 const app = express();
 const port = 3000;
-
+//mysqlpassword
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.json());
 app.use(cookieParser());
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 // 사용자 정보를 저장할 JSON 파일 경로
