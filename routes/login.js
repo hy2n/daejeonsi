@@ -4,6 +4,7 @@ const router = express.Router();
 const path = require('path'); // path 모듈 import
 const fs = require('fs'); // fs 모듈 import
 const jwt = require('jsonwebtoken'); // jwt 모듈 import
+const crypto = require('crypto'); //해시값을 받기위해서 모듈 import
 
 router.use(express.urlencoded( {extended : false } ));
 router.use(bodyParser.json());
@@ -24,7 +25,7 @@ router.post('/', (req, res) => {
   console.log("this is login.js log");
   const { id, password } = req.body;
 
-  const user = users.find(user => user.id === id && user.password === password);
+  const user = users.find(user => user.id === id && user.password === hashPassword(password));
   if (!user) {
     return res.status(401).json({ error: 'ID 또는 비밀번호가 잘못되었습니다.'+ id});
   }
@@ -37,5 +38,11 @@ router.post('/', (req, res) => {
 
   res.status(200).json({ message: '로그인이 성공적으로 완료되었습니다.' });
 });
+
+function hashPassword(password) {
+  const hash = crypto.createHash('sha256');
+  hash.update(password);
+  return hash.digest('hex');
+}
 
 module.exports = router;

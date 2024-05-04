@@ -1,8 +1,9 @@
 const express = require('express');
 var bodyParser = require('body-parser')
 const router = express.Router();
-const path = require('path'); // path 모듈 import
-const fs = require('fs'); // fs 모듈 import
+const path = require('path');
+const fs = require('fs');
+const crypto = require('crypto');
 
 router.use(express.urlencoded( {extended : false } ));
 router.use(bodyParser.json());
@@ -18,12 +19,11 @@ try {
   console.error('사용자 정보를 읽어오는 데 문제가 발생했습니다.', err);
 }
 
-
 router.post('/', (req, res) => {
-    const { id, password, stdudentid } = req.body;
+    const { id, password, studentid } = req.body;
   
-    if (!id || !password || !stdudentid) {
-      return res.status(400).json({ error: 'ID와 비밀번호를 모두 입력해주세요.' });
+    if (!id || !password || !studentid) {
+      return res.status(400).json({ error: 'ID와 비밀번호를 모두 입력해주세요.'});
     }
     if (users.some(user => user.id === id)) {
       return res.status(400).json({ error: '이미 존재하는 ID입니다.' });
@@ -31,13 +31,19 @@ router.post('/', (req, res) => {
     if (users.some(user => user.studentid === studentid)) {
       return res.status(400).json({ error: '이미 존재하는 학생 ID입니다.' });
     }
-  
+    var userPWhash = hashPassword(password);
     // 사용자 정보를 저장
-    const newUser = { id, password };
+    const newUser = { id, userPWhash ,studentid};
     users.push(newUser);
-    fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 2));
+    fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 3));
   
     res.status(200).json({ message: '회원 가입이 완료되었습니다.' });
 });
+
+function hashPassword(password) {
+  const hash = crypto.createHash('sha256');
+  hash.update(password);
+  return hash.digest('hex');
+}
 
 module.exports = router;
