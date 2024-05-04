@@ -1,4 +1,5 @@
 const express = require('express');
+var bodyParser = require('body-parser')
 const fs = require('fs');
 const path = require('path');
 const app = express();
@@ -8,6 +9,7 @@ const port = 3000;
 const router = express.Router();
 const loginRouter = require('./routes/login');
 const joinRouter = require('./routes/join');
+
 
 app.use(express.json()); //
 app.use(express.static(path.join(__dirname, 'public'))); //public 폴더 개방

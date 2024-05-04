@@ -1,8 +1,12 @@
 const express = require('express');
+var bodyParser = require('body-parser')
 const router = express.Router();
 const path = require('path'); // path 모듈 import
 const fs = require('fs'); // fs 모듈 import
 const jwt = require('jsonwebtoken'); // jwt 모듈 import
+
+router.use(express.urlencoded( {extended : false } ));
+router.use(bodyParser.json());
 
 // 유저 정보 저장한 파일 불러오기(실제로는 DB연결)
 const usersFilePath = path.join(__dirname,  './../data/db/users.json');
@@ -22,7 +26,7 @@ router.post('/', (req, res) => {
 
   const user = users.find(user => user.id === id && user.password === password);
   if (!user) {
-    return res.status(401).json({ error: 'ID 또는 비밀번호가 잘못되었습니다.' });
+    return res.status(401).json({ error: 'ID 또는 비밀번호가 잘못되었습니다.'+ id});
   }
 
   // JWT 토큰 생성

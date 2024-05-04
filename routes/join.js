@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 
 router.post('/', (req, res) => {
-  console.log("this is join.js log");
     const { id, password } = req.body;
   
     if (!id || !password) {
