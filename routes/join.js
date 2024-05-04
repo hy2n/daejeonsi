@@ -1,4 +1,7 @@
-app.post('/api_join', (req, res) => {
+const express = require('express');
+const router = express.Router();
+const app = express();
+app.post('/', (req, res) => {
     const { id, password } = req.body;
   
     if (!id || !password) {
@@ -16,3 +19,5 @@ app.post('/api_join', (req, res) => {
   
     res.status(200).json({ message: '회원 가입이 완료되었습니다.' });
   });
+
+  module.exports = router;

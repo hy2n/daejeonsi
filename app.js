@@ -3,6 +3,10 @@ const fs = require('fs');
 const path = require('path');
 const app = express();
 const port = 3000;
+const router = express.Router();
+const loginRouter = require('./routes/login');
+const joinRouter = require('./routes/join');
+
 const usersession = require('./session.js')
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -18,6 +22,8 @@ try {
   console.error('사용자 정보를 읽어오는 데 문제가 발생했습니다.', err);
 }
 
+app.use('/login_api', loginRouter);
+app.use('/join_api', loginRouter);
 
 // 회원 가입 페이지
 app.get('/join', (req, res) => {
