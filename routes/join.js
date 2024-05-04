@@ -25,9 +25,11 @@ router.post('/', (req, res) => {
     if (!id || !password || !stdudentid) {
       return res.status(400).json({ error: 'ID와 비밀번호를 모두 입력해주세요.' });
     }
-  
     if (users.some(user => user.id === id)) {
       return res.status(400).json({ error: '이미 존재하는 ID입니다.' });
+    }
+    if (users.some(user => user.studentid === studentid)) {
+      return res.status(400).json({ error: '이미 존재하는 학생 ID입니다.' });
     }
   
     // 사용자 정보를 저장
