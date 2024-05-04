@@ -3,6 +3,8 @@ const fs = require('fs');
 const path = require('path');
 const app = express();
 const port = 3000;
+
+//nodeJS 라우터
 const router = express.Router();
 const loginRouter = require('./routes/login');
 const joinRouter = require('./routes/join');
@@ -23,7 +25,7 @@ try {
 }
 
 app.use('/login_api', loginRouter);
-app.use('/join_api', loginRouter);
+app.use('/join_api', joinRouter);
 
 // 회원 가입 페이지
 app.get('/join', (req, res) => {
