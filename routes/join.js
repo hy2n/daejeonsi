@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const app = express();
-app.post('/', (req, res) => {
+
+router.post('/join_api', (req, res) => {
     const { id, password } = req.body;
   
     if (!id || !password) {
@@ -18,6 +18,6 @@ app.post('/', (req, res) => {
     fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 2));
   
     res.status(200).json({ message: '회원 가입이 완료되었습니다.' });
-  });
+});
 
-  module.exports = router;
+module.exports = router;
