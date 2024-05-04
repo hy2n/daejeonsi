@@ -124,11 +124,11 @@ label > p {
   color: #fff;
   font-size: 16px;
   background-color: #6A24FE;
+  cursor: pointer;
 }
 #signupT {
   font-size: 38px;
 }
-
 #ask {
   font-size: 22px;
   float: left;
@@ -150,6 +150,16 @@ label > p {
   #wrap {display: none;}
   #none {display: block;}
 }
+
+@media screen and (min-width: 500px) {
+  .signup-wrapper {width: 400px !important;}
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
   </style>
 </head>
 <body>
@@ -164,7 +174,7 @@ label > p {
             <h2 id="signupT">Sign Up</h2>
             <form method="post" action="/api_register" id="signup-form">
               <input type="text" name="id" required placeholder="nickname">
-              <input type="text" name="studentid" required placeholder="StudentID ex)1011">
+              <input type="number" name="studentid" required placeholder="StudentID ex)1011" onkeydown="return event.keyCode == 69 ? false : true">
               <input type="password" name="password" required placeholder="password">
               <input type="submit" value="Sign Up">
             </form>
