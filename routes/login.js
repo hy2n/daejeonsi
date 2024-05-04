@@ -1,6 +1,17 @@
 const express = require('express');
 const router = express.Router();
 
+// 사용자 정보를 저장할 JSON 파일 경로
+const usersFilePath = path.join(__dirname, './db/users.json');
+
+// 회원 정보를 받아오기
+let users = [];
+try {
+  users = JSON.parse(fs.readFileSync(usersFilePath, 'utf8'));
+} catch (err) {
+  console.error('사용자 정보를 읽어오는 데 문제가 발생했습니다.', err);
+}
+
 // 로그인 엔드포인트
 router.post('/', (req, res) => {
   console.log("this is login.js log");

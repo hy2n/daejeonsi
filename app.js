@@ -8,35 +8,24 @@ const port = 3000;
 const router = express.Router();
 const loginRouter = require('./routes/login');
 const joinRouter = require('./routes/join');
-
-const usersession = require('./routes/session.js')
-app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
-
-// 사용자 정보를 저장할 JSON 파일 경로
-const usersFilePath = path.join(__dirname, 'users.json');
-
-// 회원 정보를 읽어옵니다.
-let users = [];
-try {
-  users = JSON.parse(fs.readFileSync(usersFilePath, 'utf8'));
-} catch (err) {
-  console.error('사용자 정보를 읽어오는 데 문제가 발생했습니다.', err);
-}
+const sessionRouter = require('./routes/session'); //세션 미들웨어 준비
+app.use(express.json()); //
+app.use(express.static(path.join(__dirname, 'public'))); //public 폴더 개방
 
 app.use('/api_login', loginRouter);
 app.use('/api_register', joinRouter);
 
-// 회원 가입 페이지
+//정적 파일 서브
 app.get('/join', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'join.html'));
 });
 
-// 로그인 페이지
+//정적 파일 서브
 app.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
 
+//메인홈 파일 서브
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
