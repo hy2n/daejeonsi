@@ -20,7 +20,7 @@ try {
 }
 
 router.post('/', (req, res) => {
-    const { id, password, studentid } = req.body;
+    var { id, password, studentid } = req.body;
   
     if (!id || !password || !studentid) {
       return res.status(400).json({ error: 'ID와 비밀번호를 모두 입력해주세요.'});
