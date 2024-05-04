@@ -8,7 +8,6 @@ const port = 3000;
 const router = express.Router();
 const loginRouter = require('./routes/login');
 const joinRouter = require('./routes/join');
-const sessionRouter = require('./routes/session'); //세션 미들웨어 준비
 
 app.use(express.json()); //
 app.use(express.static(path.join(__dirname, 'public'))); //public 폴더 개방

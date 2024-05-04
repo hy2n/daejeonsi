@@ -1,8 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const path = require('path'); // path 모듈 import
+const fs = require('fs'); // fs 모듈 import
+const jwt = require('jsonwebtoken'); // jwt 모듈 import
 
-// 사용자 정보를 저장할 JSON 파일 경로
-const usersFilePath = path.join(__dirname, './db/users.json');
+// 유저 정보 저장한 파일 불러오기(실제로는 DB연결)
+const usersFilePath = path.join(__dirname,  './../data/db/users.json');
 
 // 회원 정보를 받아오기
 let users = [];
