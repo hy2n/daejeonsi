@@ -11,29 +11,27 @@ const port = 3000;
 const router = express.Router();
 const loginRouter = require('./routes/login');
 const joinRouter = require('./routes/join');
+const joinRouter = require('./routes/mypage');
 
-
-app.use(express.json()); //
+//EXPRESS JS INIT
+app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public'))); //public 폴더 개방
 app.use(cookieParser()); //JWT인증 위한 쿠키파서 사용
 
-app.use('/api_login', loginRouter);
-app.use('/api_register', joinRouter);
+app.use('/api_login', loginRouter); //로그인 라우터
+app.use('/api_register', joinRouter); //회원가입 라우터
 
 //정적 파일 서브
-app.get('/join', (req, res) => {
+app.get('/join', (req, res) => { //가입페이지 서브
   res.sendFile(path.join(__dirname, 'public', 'join.html'));
 });
-
-//정적 파일 서브
-app.get('/login', (req, res) => {
+app.get('/login', (req, res) => { //로그인페이지 서브
   res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
-
-//메인홈 파일 서브
-app.get('/', (req, res) => {
+app.get('/', (req, res) => { //기본 소개 페이지 서브
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
+
 
 app.get('/home', verifyToken, (req, res) => {
   // 유저 정보 저장한 파일 불러오기(실제로는 DB연결)
@@ -64,7 +62,6 @@ function verifyToken(req, res, next) {
     if (err) {
       return res.status(403).json({ error: '토큰 인증에 실패했습니다.' });
     }
-
     req.user = decoded;
     next();
   });
