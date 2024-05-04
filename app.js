@@ -9,7 +9,7 @@ const router = express.Router();
 const loginRouter = require('./routes/login');
 const joinRouter = require('./routes/join');
 
-const usersession = require('./session.js')
+const usersession = require('./routes/session.js')
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
