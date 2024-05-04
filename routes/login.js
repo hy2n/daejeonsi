@@ -27,7 +27,7 @@ router.post('/', (req, res) => {
 
   const user = users.find(user => user.id === id && user.password === hashPassword(password));
   if (!user) {
-    return res.status(401).json({ error: 'ID 또는 비밀번호가 잘못되었습니다.'+ id});
+    return res.status(401).json({ error: 'ID 또는 비밀번호가 잘못되었습니다.'+ hashPassword(password)});
   }
 
   // JWT 토큰 생성
