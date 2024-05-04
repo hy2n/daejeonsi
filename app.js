@@ -24,8 +24,8 @@ try {
   console.error('사용자 정보를 읽어오는 데 문제가 발생했습니다.', err);
 }
 
-app.use('/login_api', loginRouter);
-app.use('/join_api', joinRouter);
+app.use('/api_login', loginRouter);
+app.use('/api_register', joinRouter);
 
 // 회원 가입 페이지
 app.get('/join', (req, res) => {

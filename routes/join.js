@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-router.post('/join_api', (req, res) => {
+router.post('/api_register', (req, res) => {
     const { id, password } = req.body;
   
     if (!id || !password) {
