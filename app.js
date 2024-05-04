@@ -1,5 +1,7 @@
 const express = require('express');
 var bodyParser = require('body-parser')
+const jwt = require('jsonwebtoken');
+var cookieParser = require('cookie-parser');
 const fs = require('fs');
 const path = require('path');
 const app = express();
@@ -13,6 +15,7 @@ const joinRouter = require('./routes/join');
 
 app.use(express.json()); //
 app.use(express.static(path.join(__dirname, 'public'))); //public 폴더 개방
+app.use(cookieParser()); //JWT인증 위한 쿠키파서 사용
 
 app.use('/api_login', loginRouter);
 app.use('/api_register', joinRouter);
@@ -32,9 +35,15 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// 마이페이지 엔드포인트 (인증 필요)
 app.get('/home', verifyToken, (req, res) => {
-  // verifyToken 미들웨어를 통과하면, 유저의 정보를 확인할 수 있습니다.
+  // 유저 정보 저장한 파일 불러오기(실제로는 DB연결)
+  const usersFilePath = path.join(__dirname, './data/db/users.json');
+  let users = [];
+  try {
+    users = JSON.parse(fs.readFileSync(usersFilePath, 'utf8'));
+  } catch (err) {
+    console.error('사용자 정보를 읽어오는 데 문제가 발생했습니다.', err);
+  }
   const user = users.find(user => user.id === req.user.id);
   if (!user) {
     return res.status(404).json({ error: '사용자를 찾을 수 없습니다.' });
