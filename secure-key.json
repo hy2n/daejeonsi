@@ -1,0 +1,4 @@
+{
+    "privateEncryptKey": "this-is-key-example",
+    "privatePasswordHashKey": "hashkey"
+}

@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 // 로그인 엔드포인트
-router.post('/api_login', (req, res) => {
+router.post('/', (req, res) => {
+  console.log("this is login.js log");
   const { id, password } = req.body;
 
   const user = users.find(user => user.id === id && user.password === password);
