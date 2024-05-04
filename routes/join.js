@@ -31,9 +31,9 @@ router.post('/', (req, res) => {
     if (users.some(user => user.studentid === studentid)) {
       return res.status(400).json({ error: '이미 존재하는 학생 ID입니다.' });
     }
-    var userPWhash = hashPassword(password);
+    password = hashPassword(password);
     // 사용자 정보를 저장
-    const newUser = { id, userPWhash ,studentid};
+    const newUser = { id, password ,studentid};
     users.push(newUser);
     fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 3));
   
