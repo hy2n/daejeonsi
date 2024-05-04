@@ -12,10 +12,6 @@
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
   font-weight: 800;
   font-style: normal;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-use-select: none;
-  user-select: none;
 }
 
 #wrap {
@@ -33,6 +29,10 @@
   font-family: 'SUITE-Regular';
   padding: 0;
   margin: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-use-select: none;
+  user-select: none;
 }
 
 a {
@@ -53,7 +53,7 @@ section {
   display: block;
   justify-content: space-between;
   align-items: center;
-  height: 400px;
+  height: 450px;
   position: sticky;
   margin : 0 auto;
   overflow: hidden;
@@ -65,7 +65,7 @@ section {
   float: left;
 }
 
-#logI {
+#signupI {
   margin-right: 32px;
 }
 
@@ -85,18 +85,18 @@ h1 {
   font-style: bold;
 }
 
-.login-wrapper{
+.signup-wrapper{
   position: absolute;
   left: 50%;
-  top: 20%;
+  top: 35%;
   transform: translate(-50%, -50%);
   display: block;
   width: 70%;
-  height: 150px;
+  height: 300px;
   box-sizing: border-box;
   float: left;
 }
-.login-wrapper > label {
+.signup-wrapper > label {
   float:left;
 }
 label > p {
@@ -104,12 +104,12 @@ label > p {
   margin-top: 10px;
   float:left;
 }
-.login-wrapper > h2{
+.signup-wrapper > h2{
   font-size: 32px;
   color: #6A24FE;
   margin-bottom: 20px;
 }
-#login-form > input{
+#signup-form > input{
   width: 100%;
   height: 48px;
   box-sizing: border-box;
@@ -117,15 +117,15 @@ label > p {
   border-radius: 6px;
   background-color: #F8F8F8;
 }
-#login-form > input::placeholder{
+#signup-form > input::placeholder{
   color: #D2D2D2;
 }
-#login-form > input[type="submit"]{
+#signup-form > input[type="submit"]{
   color: #fff;
   font-size: 16px;
   background-color: #6A24FE;
 }
-#logT {
+#signupT {
   font-size: 38px;
 }
 
@@ -134,7 +134,7 @@ label > p {
   float: left;
   margin-left: 6px;
 }
-.login-wrapper > a {
+.signup-wrapper > a {
   font-size: 22px;
   float: right;
   color:#6A24FE;
@@ -143,7 +143,7 @@ label > p {
 
 @media screen and (max-width: 380px) {
   #ask {font-size: 18px;}
-  .login-wrapper > a {font-size: 18px;}
+  .signup-wrapper > a {font-size: 18px;}
 }
 
 @media screen and (max-width: 300px) {
@@ -155,21 +155,21 @@ label > p {
 <body>
   <div id="wrap">
     <header>
-      <a href="https://daejeonsi.nanu.cc"><img id="logo" src="https://daejeonsi.nanu.cc/assets/DJS_LOGO_WIDE.png"></a>
-      <a href="https://daejeonsi.nanu.cc/join" id="logI">회원가입</a>
+      <a href="/"><img id="logo" src="https://daejeonsi.nanu.cc/assets/DJS_LOGO_WIDE.png"></a>
+      <a href="/login" id="signupI">로그인</a>
     </header>
     <section>
       <div class="page">
-        <div class="login-wrapper">
-            <h2 id="logT">가입</h2>
-            <form method="post" action="/api_join" id="login-form">
-              <input type="text" id="username" name="username" required placeholder="Username">
-              <input type="text" id="id" name="id" required placeholder="StudentID ex)1011">
-              <input type="password" id="password" name="password" required placeholder="Password">
-              <input type="submit" value="Log in">
+        <div class="signup-wrapper">
+            <h2 id="signupT">Sign Up</h2>
+            <form method="post" action="/api_register" id="signup-form">
+              <input type="text" name="name" required placeholder="nickname">
+              <input type="text" name="id" required placeholder="StudentID ex)1011">
+              <input type="password" name="password" required placeholder="password">
+              <input type="submit" value="Sign Up">
             </form>
-            <p id="ask">계정이 없으신가요?</p>
-            <a href="https://daejeonsi.nanu.cc/join">회원가입</a>
+            <p id="ask">이미 계정이 있다면?</p>
+            <a href="/login">로그인</a>
         </div>
       </div>
     </section>
