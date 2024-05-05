@@ -51,6 +51,7 @@ app.get('/', (req, res) => { //기본 소개 페이지 서브
 
 
 app.get('/home', verifyToken, (req, res) => {
+  
   res.render('home',
     {
       stduentID: req.user.id,
