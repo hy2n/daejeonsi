@@ -37,6 +37,7 @@ router.post('/', (req, res) => {
   users.push(newUser);
   fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 3));
 
+  
   res.status(200).json({ message: '회원 가입이 완료되었습니다.' });
 });
 

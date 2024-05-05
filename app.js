@@ -11,7 +11,7 @@ const port = 3000;
 const router = express.Router();
 const loginRouter = require('./routes/login');
 const joinRouter = require('./routes/join');
-const joinRouter = require('./routes/mypage');
+const mypageRouter = require('./routes/mypage');
 
 //EXPRESS JS INIT
 app.use(express.json());
@@ -20,6 +20,7 @@ app.use(cookieParser()); //JWT인증 위한 쿠키파서 사용
 
 app.use('/api_login', loginRouter); //로그인 라우터
 app.use('/api_register', joinRouter); //회원가입 라우터
+app.use('/mypage', mypageRouter); //마이페이지 라우터
 
 //정적 파일 서브
 app.get('/join', (req, res) => { //가입페이지 서브
