@@ -149,7 +149,7 @@ caption {
 #user-name {font-size: 27px;}
 .interact-wrapper {margin-top: 50px; width: 400px; height: 80px; display: flex; justify-content: center;}
 .interact-wrapper > * {width: 80px; height: 25px; text-align: center; color: white; cursor: pointer;}
-#logOut {background: linear-gradient(135deg, rgb(255, 66, 66), rgb(120, 0, 0));}
+#logout {background: linear-gradient(135deg, rgb(255, 66, 66), rgb(120, 0, 0));}
 #resign {margin-left: 20px; background: linear-gradient(135deg, rgb(120, 0, 0), rgb(0, 0, 0));}
 .interact-wrapper > *:hover {animation-name: scale; animation-duration: 0.5s; animation-fill-mode: forwards;}
 
@@ -188,10 +188,10 @@ caption {
           <h2 id="user-id">ID : <%= stduentID %></h2>
         </div>
         <div class="interact-wrapper">
-          <div id="logOut" onclick="alert('대충 로그아웃')">
+          <div id="logout" onclick="location.href='/api/mypage/logout'">
             <h4>로그아웃</h4>
           </div>
-          <div id="resign" onclick="alert('대충 삭제')">
+          <div id="resign" onclick="if (confirm('정말 삭제하시겠습니까?')) {location.href='/api/mypage/account-delete'}">
             <h4>탈퇴</h4>
           </div>
         </div>
@@ -254,83 +254,75 @@ caption {
     </section>
   </div>
   <script>
-    // 통신용
-    const xhr = new XMLHttpRequest();
-    // 메모
-    let memoView = document.getElementsByClassName("memo");
-    let memoTitle = document.getElementById("title");
-    let memoSel = document.getElementById("memoSel");
-    let memoInfo = document.getElementById("info");
-    // 페이지
-    let myInfo = document.getElementsByClassName("info")[0];
-    let page = document.getElementsByClassName("page")[0];
-    // 메모 팝업 필드
-    var select = -1;
-    var memoData = [["음악최고", ""], ["음악최고음악최고", ""], ["음악최고음악최고음악최고", ""], ["음악최고음악최고음악최고음악최고", ""], ["오늘은 의무귀가", ""]]
+// api요청 망함
 
-    // element display id로 변경 
-    const show = (id) => {
-      document.getElementById(id).style.display = "block";
-    }
-    const hide = (id) => {
-      document.getElementById(id).style.display = "none";
-    }
+// 메모
+let memoView = document.getElementsByClassName("memo");
+let memoTitle = document.getElementById("title");
+let memoSel = document.getElementById("memoSel");
+let memoInfo = document.getElementById("info");
+// 페이지
+let myInfo = document.getElementsByClassName("info")[0];
+let page = document.getElementsByClassName("page")[0];
+// 메모 팝업 필드
+var select = -1;
+var memoData = [["음악최고", ""], ["음악최고음악최고", ""], ["음악최고음악최고음악최고", ""], ["음악최고음악최고음악최고음악최고", ""], ["오늘은 의무귀가", ""]]
 
-    // 통신용
-    const fetch = (route) => {
-      return xhr.open('GET', route);
-    }
+// element display id로 변경 
+const show = (id) => {
+  document.getElementById(id).style.display = "block";
+}
+const hide = (id) => {
+  document.getElementById(id).style.display = "none";
+}
 
-    // 로직 변경 필요
-    const loadMemo = () => {
-      var temp;
-      for (var i = 0; i < 5; i++){
-        temp = memoData[i][0];
-        if (memoData[i][0].length > 14){
-          temp = memoData[i][0].slice(0,12)+"...";
-        }
-        memoView[i].innerHTML = temp;
-      }
+// 로직 변경 필요
+const loadMemo = () => {
+  var temp;
+  for (var i = 0; i < 5; i++){
+    temp = memoData[i][0];
+    if (memoData[i][0].length > 14){
+      temp = memoData[i][0].slice(0,12)+"...";
     }
-    // 메모 요소 클릭 이벤트
-    const sel = (n) => {
-      select = n;
-      memoTitle.value = memoData[select][0];
-      memoInfo.value = memoData[select][1];
-      show("memoSel");
-    }
-    // 메모 닫기 버튼 클릭 이벤트
-    const cancle = () => {
-      hide("memoSel");
-      loadMemo();
-    }
-    // 메모 내용 반영
-    function update(){
-      memoData[select][0] = memoTitle.value;
-      memoData[select][1] = memoInfo.value;
-    }
-    // 로직 변경 필요
-    document.addEventListener("mousemove", function(e){
-      if (memoSel.style.display == "none"){
-        memoSel.style.left = (e.clientX-200) + "px";
-        memoSel.style.top = (e.clientY-100) + "px";
-      }
-    });
-    // info 열기
-    document.getElementById("open-info").addEventListener("mousedown", function(e){
-      page.style.display = "none";
-      myInfo.style.display = "block";
-    });
-    // info 닫기
-    document.getElementById("info-cancle").addEventListener("mousedown", function(e){
-      myInfo.style.display = "none";
-      page.style.display = "block";
-    });
+    memoView[i].innerHTML = temp;
+  }
+}
+// 메모 요소 클릭 이벤트
+const sel = (n) => {
+  select = n;
+  memoTitle.value = memoData[select][0];
+  memoInfo.value = memoData[select][1];
+  show("memoSel");
+}
+// 메모 닫기 버튼 클릭 이벤트
+const cancle = () => {
+  hide("memoSel");
+  loadMemo();
+}
+// 메모 내용 반영
+function update(){
+  memoData[select][0] = memoTitle.value;
+  memoData[select][1] = memoInfo.value;
+}
+// 로직 변경 필요
+document.addEventListener("mousemove", function(e){
+  if (memoSel.style.display == "none"){
+    memoSel.style.left = (e.clientX-200) + "px";
+    memoSel.style.top = (e.clientY-100) + "px";
+  }
+});
+// info 열기
+document.getElementById("open-info").addEventListener("mousedown", function(e){
+  page.style.display = "none";
+  myInfo.style.display = "block";
+});
+// info 닫기
+document.getElementById("info-cancle").addEventListener("mousedown", function(e){
+  myInfo.style.display = "none";
+  page.style.display = "block";
+});
 
-    // let res = JSON.parse(fetch("/api/teacherinfo/컴구장연"));
-    // console.log(res["teacher_name"]);
-
-    // 더미데이터 로드
-    loadMemo();
+// 더미데이터 로드
+loadMemo();
   </script>
 </body>
