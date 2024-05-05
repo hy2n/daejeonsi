@@ -6,7 +6,12 @@ const fs = require('fs'); // fs 모듈 import
 const jwt = require('jsonwebtoken'); // jwt 모듈 import
 const crypto = require('crypto'); //해시값을 받기위해서 모듈 import
 const requestIp = require("request-ip");
+
+/* NANU Cloud Secure Engine (2024.5 XTR Update - NodeJS Version) Load
+*  하단의 보안 스크립트는 무단 배포시 법적 책임이 있습니다.
+*  스크립트 파일을 .gitignore 에 설정하세요 */
 const security = require('./security');
+// https://sec.nanu.cc
 
 router.use(express.urlencoded({ extended: false }));
 router.use(bodyParser.json());
