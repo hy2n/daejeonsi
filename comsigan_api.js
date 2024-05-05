@@ -18,9 +18,9 @@ const test = async () => {
 
   // result[학년][반][요일][교시]
   // 요일: (월: 0 ~ 금: 4)
-  // 교시: 1교시(0), 2교시(1), 3교시(2)..
-  // 2학년 4반 화요일 3교시 시간표
-  console.log(result[1][4][3][3]);
+  // 교시: 1교시(0), 2교시(1), 3교시(2)~ 7교시(8)
+
+  console.log(result[1][4]);
   //console.log(result[1][4][1][2].teacher);
 
   /*for (let m = 0; m < 5;) {

@@ -63,7 +63,7 @@ app.get('/home', verifyToken, (req, res) => {
       q4st:"4교시과목",
       q5st:"5교시과목",
       q6st:"6교시과목",
-      q7st:"7교시과목"
+      q7st:"7교시과목" 
     }
   );
 });
