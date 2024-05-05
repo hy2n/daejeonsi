@@ -10,6 +10,8 @@ router.use(bodyParser.json());
 
 // 유저 정보 저장한 파일 불러오기(실제로는 DB연결)
 const usersFilePath = path.join(__dirname, './../data/db/users.json');
+// 학번이름 정보 저장한 파일 불러오기(실제로는 DB연결)
+const nameFilePath = path.join(__dirname, './../data/db/username.json');
 
 
 router.post('/', (req, res) => {
@@ -32,8 +34,12 @@ router.post('/', (req, res) => {
     return res.send('<script>alert("이미 사용중인 학번입니다. 010-2821-5213으로 연락주세요.");window.history.back();</script>');
   }
   password = hashPassword(password);
+  var name = findName(studentid);
+  if (name == null) {
+    return res.send('<script>alert("사용할 수 없는 학번입니다");window.history.back();</script>');
+  }
   // 사용자 정보를 저장
-  const newUser = { id, password, studentid };
+  const newUser = { id, password, studentid, name };
   users.push(newUser);
   fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 3));
 
@@ -44,6 +50,35 @@ function hashPassword(password) {
   const hash = crypto.createHash('sha256');
   hash.update(password);
   return hash.digest('hex');
+}
+
+
+
+// 학번을 입력하면 해당하는 이름을 반환하는 함수
+function findName(studentID, filePath) {
+  const students = loadStudents();
+  if (!students) {
+    console.error('학생 정보를 불러올 수 없습니다.');
+    return null;
+  }
+
+  var name = students[studentID];
+  if (!name) {
+    console.error('해당하는 학번의 학생을 찾을 수 없습니다.');
+    return null;
+  }
+
+  return name;
+}
+
+function loadStudents() {
+  try {
+    const data = fs.readFileSync(nameFilePath, 'utf8');
+    return JSON.parse(data);
+  } catch (error) {
+    console.error('파일을 읽어오는 중 에러 발생:', error);
+    return null;
+  }
 }
 
 module.exports = router;

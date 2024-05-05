@@ -114,6 +114,7 @@ textarea {
 }
 
 caption {
+  padding-top: 2%;
   font-size: 26px;
 }
 
@@ -178,13 +179,13 @@ caption {
         <div id="info-cancle">X</div>
         <div class="img-wrapper">
           <div id="imgHolder">
-            <img src="#" width="100px" alt="user-img">
+            <img src="/assets/userpic.png" width="100px" alt="user-img">
           </div>
-          <h1 id="user-name">UserName</h1>
+          <h1 id="user-name"><%= username %>님</h1>
         </div>
         <div class="info-wrapper">
-          <h2 id="user-state">학생 :&nbsp;</h2>
-          <h2 id="user-id">1101</h2>
+          <h2 id="user-state">학생</h2><br>
+          <h2 id="user-id">ID : <%= stduentID %></h2>
         </div>
         <div class="interact-wrapper">
           <div id="logOut" onclick="alert('대충 로그아웃')">
@@ -198,7 +199,8 @@ caption {
       <div class="page">
         <div class="table-wrapper">
           <table>
-            <caption><b>오늘의 시간표</b></caption>
+            <caption><b><%= userSector %>학년 <%= userRoom %>반의
+              <br>오늘의 시간표</b></caption>
             <thead>
               <tr>
                 <th width="80px">교시</th>

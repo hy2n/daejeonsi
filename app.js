@@ -7,6 +7,10 @@ const path = require('path');
 const app = express();
 const port = 3000;
 
+// 렌더링 엔진 설정
+app.set('view engine', 'ejs'); // 템플릿 엔진으로 EJS 사용
+app.set('views', path.join(__dirname, 'render')); // 템플릿 파일의 디렉토리 설정
+
 //nodeJS 라우터
 const router = express.Router();
 const loginRouter = require('./routes/login');
@@ -35,30 +39,24 @@ app.get('/', (req, res) => { //기본 소개 페이지 서브
 
 
 app.get('/home', verifyToken, (req, res) => {
-  // 유저 정보 저장한 파일 불러오기(실제로는 DB연결)
-  const usersFilePath = path.join(__dirname, './data/db/users.json');
-  let users = [];
-  try {
-    users = JSON.parse(fs.readFileSync(usersFilePath, 'utf8'));
-  } catch (err) {
-    console.error('사용자 정보를 읽어오는 데 문제가 발생했습니다.', err);
-  }
-  const user = users.find(user => user.id === req.user.id);
-  if (!user) {
-    return res.status(404).json({ error: '사용자를 찾을 수 없습니다.' });
-  }
-
-  res.sendFile(path.join(__dirname, 'public', 'home.html'));
+  res.render('home',
+   {
+    stduentID: req.user.id,
+    userRoom: AnalyzeUserRoom(req.user.studentid,1,2),
+    userSector:AnalyzeUserRoom(req.user.studentid,0,1),
+    username: req.user.name
+   }
+  );
 });
+
 
 // JWT 토큰을 검증하는 미들웨어
 function verifyToken(req, res, next) {
+  
   const token = req.cookies.token;
-
   if (!token) {
     return res.status(401).json({ error: '토큰이 없습니다.' });
   }
-
   jwt.verify(token, 'secret_key', (err, decoded) => {
     if (err) {
       return res.status(403).json({ error: '토큰 인증에 실패했습니다.' });
@@ -66,6 +64,19 @@ function verifyToken(req, res, next) {
     req.user = decoded;
     next();
   });
+}
+
+function AnalyzeUserRoom(input,slice_num,end_num) {
+  // 입력이 문자열이 아닌 경우 문자열로 변환
+  input = String(input);
+  
+  // 문자열의 길이가 4 미만인 경우 예외처리
+  if (input.length < 4) {
+      return "입력값이 유효하지 않습니다.";
+  }
+  
+  // 첫 번째와 두 번째 숫자를 추출하여 반환
+  return input.slice(slice_num,end_num);
 }
 
 app.listen(port, () => {
