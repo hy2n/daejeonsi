@@ -50,11 +50,15 @@ router.post('/', (req, res) => {
       const name = user.name;
 
       // JWT 토큰 생성
-      const token = jwt.sign({ id, studentid, name }, 'secret_key', { expiresIn: '1y' });
+      const token = jwt.sign({ id, studentid, name }, 'secret_key', { expiresIn: '6m' });
 
       // 쿠키에 토큰 저장
-      res.cookie('token', token, { httpOnly: true });
-      res.send('<meta http-equiv="refresh" content="0; url=/home"></meta><script>alert("로그인 완료!");</script>');
+      const sixMonths = 6 * 30 * 24 * 60 * 60 * 1000; // 6개월
+      res.cookie('token', token, {
+        httpOnly: true,
+        maxAge: sixMonths
+      });
+      res.send('<meta http-equiv="refresh" content="0; url=/home"></meta><script>alert("로그인에 성공하였습니다");</script>');
     }
   });
 });
