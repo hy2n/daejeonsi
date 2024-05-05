@@ -20,17 +20,17 @@ const test = async () => {
   // 요일: (월: 0 ~ 금: 4)
   // 교시: 1교시(0), 2교시(1), 3교시(2)..
   // 2학년 4반 화요일 3교시 시간표
-  //console.log(result[1][4][1][2]);
+  console.log(result[1][4][3][3]);
   //console.log(result[1][4][1][2].teacher);
 
-  for (let m = 0; m < 5;) {
+  /*for (let m = 0; m < 5;) {
     console.log(m+"st log ==============")
     for (var x = 0; x < 8;) {
       console.log(result[1][4][m][x].subject);
       x++;
     }
     m++;
-  }
+  }*/
 };
 
 test();

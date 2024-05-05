@@ -55,20 +55,27 @@ app.get('/home', verifyToken, (req, res) => {
       stduentID: req.user.id,
       userRoom: AnalyzeUserRoom(req.user.studentid, 1, 2),
       userSector: AnalyzeUserRoom(req.user.studentid, 0, 1),
-      username: req.user.name
+      username: req.user.name,
+
+      q1st:"1교시과목",
+      q2st:"2교시과목",
+      q3st:"3교시과목",
+      q4st:"4교시과목",
+      q5st:"5교시과목",
+      q6st:"6교시과목",
+      q7st:"7교시과목"
     }
   );
 });
 
 function verifyToken(req, res, next) {
-
   const token = req.cookies.token;
   if (!token) {
-    return res.status(401).json({ error: '토큰이 없습니다.' });
+    return res.send('<meta http-equiv="refresh" content="0; url=/"></meta><script>alert("인증에 실패했습니다. 다시 로그인 해 주세요");</script>');
   }
   jwt.verify(token, 'secret_key', (err, decoded) => {
     if (err) {
-      return res.status(403).json({ error: '토큰 인증에 실패했습니다.' });
+      return res.send('<meta http-equiv="refresh" content="0; url=/"></meta><script>alert("인증에 실패했습니다. 다시 로그인 해 주세요");</script>');
     }
     req.user = decoded;
     next();
