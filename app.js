@@ -3,6 +3,7 @@ var bodyParser = require('body-parser')
 const jwt = require('jsonwebtoken');
 var cookieParser = require('cookie-parser');
 const fs = require('fs');
+const parser = require('./parser'); //파싱엔진 로드
 const path = require('path');
 const app = express();
 const port = 3000;

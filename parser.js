@@ -1,9 +1,11 @@
 const fs = require('fs');
 const Timetable = require('comcigan-parser');
+const cron = require('node-cron');
 const timetable = new Timetable();
 
 const teachersFilePath = './data/db/teachers.json';
 const runteachersJSON_SCAN = false;
+const serviceSchoolname = '대덕소프트웨어마이스터고등학교';
 
 function parser(user_grade, user_class) {
     return new Promise(async (resolve, reject) => {
@@ -15,7 +17,7 @@ function parser(user_grade, user_class) {
             //console.log(schoolList); 학교 검색시 사용
 
             const targetSchool = schoolList.find((school) => {
-                return school.region === '대전' && school.name === '대덕소프트웨어마이스터고등학교';
+                return school.region === '대전' && school.name === serviceSchoolname;
             });
 
             // 학교 설정
@@ -105,7 +107,7 @@ function createTimetable(result, grade, classNum) {
         updateTeachersJSON(teachersInfo);
         console.log("[안내] 최초 선생님 DB등록을 마쳤습니다. 서버에 상당한 부하가 가므로 옵션을 비활성화 해주십시오.")
     }
-
+    console.log("[안내] " + grade + "학년" + classNum + "반 데이터 파싱 완료!")
 }
 
 
@@ -115,8 +117,21 @@ function parse_table(gra, cla) {
         .catch(error => console.error('Error:', error));
 }
 
-parse_table(1, 4);
-parse_table(1, 3);
-parse_table(1, 2);
-parse_table(1, 1);
+//parseFunction(); 서버 파싱은 잠깐 끔
+// Cron 작업 설정
+cron.schedule('0 6,12,15,20 * * 1-5', () => { // 평일 6시/12시/15시/20시에 파싱 진행
+    // 실행할 함수
+    parseFunction();
+}, {
+    scheduled: true,
+    timezone: "Asia/Seoul" // 해당 지역의 시간대에 맞게 설정하세요.
+});
+
+function parseFunction() {
+    parse_table(1, 4);
+    parse_table(1, 3);
+    parse_table(1, 2);
+    parse_table(1, 1);
+}
+
 
