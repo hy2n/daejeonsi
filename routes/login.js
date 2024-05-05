@@ -34,8 +34,7 @@ router.post('/', (req, res) => {
 
   // 쿠키에 토큰 저장
   res.cookie('token', token, { httpOnly: true });
-
-  res.status(200).json({ message: '로그인이 성공적으로 완료되었습니다.' });
+  res.send('<meta http-equiv="refresh" content="0; url=/home"></meta><script>alert("로그인 완료!");</script>');
 });
 
 function hashPassword(password) {

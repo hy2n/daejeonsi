@@ -23,13 +23,13 @@ router.post('/', (req, res) => {
   var { id, password, studentid } = req.body;
 
   if (!id || !password || !studentid) {
-    return res.status(400).json({ error: 'ID와 비밀번호를 모두 입력해주세요.' });
+    return res.status(401);
   }
   if (users.some(user => user.id === id)) {
-    return res.status(400).json({ error: '이미 존재하는 ID입니다.' });
+    return res.send('<script>alert("이미 사용중인 사용자 ID입니다");window.history.back();</script>');
   }
   if (users.some(user => user.studentid === studentid)) {
-    return res.status(400).json({ error: '이미 존재하는 학생 ID입니다.' });
+    return res.send('<script>alert("이미 사용중인 학번입니다. 010-2821-5213으로 연락주세요.");window.history.back();</script>');
   }
   password = hashPassword(password);
   // 사용자 정보를 저장
@@ -37,8 +37,7 @@ router.post('/', (req, res) => {
   users.push(newUser);
   fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 3));
 
-  
-  res.status(200).json({ message: '회원 가입이 완료되었습니다.' });
+  res.send('<meta http-equiv="refresh" content="0; url=/login"></meta><script>alert("가입을 완료했어요! 로그인 해 주세요.");</script>');
 });
 
 function hashPassword(password) {
