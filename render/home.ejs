@@ -175,7 +175,7 @@ caption {
       <p id="open-info">내 정보</p>
     </header>
     <section>
-      <div class="info">
+      <div class="info"> href="/home"
         <div id="info-cancle">X</div>
         <div class="img-wrapper">
           <div id="imgHolder">
@@ -190,6 +190,9 @@ caption {
         <div class="interact-wrapper">
           <div id="logout" onclick="location.href='/api/mypage/logout'">
             <h4>로그아웃</h4>
+          </div>
+          <div onclick="location.href='/make-a-princess'">
+            <h4>비밀번호 변경</h4>
           </div>
           <div id="resign" onclick="if (confirm('정말 삭제하시겠습니까?')) {location.href='/api/mypage/account-delete'}">
             <h4>탈퇴</h4>

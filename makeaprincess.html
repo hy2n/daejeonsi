@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <title>대전시</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <style>
+@charset "utf-8";
+
+@font-face {
+  font-family: 'SUITE-Regular';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-use-select: none;
+  user-select: none;
+}
+
+#wrap {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+#none {
+  display: none;
+}
+
+* {
+  text-decoration: none;
+  font-family: 'SUITE-Regular';
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: aliceblue;
+}
+
+header {
+  background: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  width: 100%;
+}
+
+section {
+  display: block;
+  justify-content: space-between;
+  align-items: center;
+  height:800px;
+  position: sticky;
+  margin : 0 auto;
+  overflow: hidden;
+}
+
+#logo {
+  max-height: 50px;
+  margin-left: 32px;
+  float: left;
+}
+
+#logI {
+  margin-right: 32px;
+}
+
+.page {
+  top: 10%;
+  width: 100%;
+  height: inherit;
+  overflow: hidden;
+  font-size: 2.5em;
+  position: relative;
+  align-items: center;
+  text-align: center;
+}
+
+h1 {
+  font-size: 3em;
+  font-style: bold;
+}
+
+.login-wrapper{
+  position: absolute;
+  left: 50%;
+  top: 35%;
+  transform: translate(-50%, -50%);
+  display: block;
+  width: 70%;
+  height: 300px;
+  box-sizing: border-box;
+  float: left;
+}
+.login-wrapper > label {
+  float:left;
+}
+label > p {
+  font-size: 20pt;
+  margin-top: 10px;
+  float:left;
+}
+.login-wrapper > h2{
+  font-size: 32px;
+  color: #6A24FE;
+  margin-bottom: 20px;
+}
+#login-form > input{
+  width: 100%;
+  height: 48px;
+  box-sizing: border-box;
+  margin-bottom: 16px;
+  border-radius: 6px;
+  background-color: #F8F8F8;
+}
+#login-form > input::placeholder{
+  color: #D2D2D2;
+}
+#login-form > input[type="submit"]{
+  color: #fff;
+  font-size: 16px;
+  background-color: #6A24FE;
+  cursor: pointer;
+}
+#logT {
+  font-size: 38px;
+}
+
+#ask {
+  font-size: 22px;
+  float: left;
+  margin-left: 6px;
+}
+.login-wrapper > a {
+  font-size: 22px;
+  float: right;
+  color:#6A24FE;
+  margin-right: 6px;
+}
+
+@media screen and (max-width: 380px) {
+  #ask {font-size: 18px;}
+  .login-wrapper > a {font-size: 18px;}
+}
+
+@media screen and (max-width: 300px) {
+  #wrap {display: none;}
+  #none {display: block;}
+}
+
+@media screen and (min-width: 500px) {
+  .login-wrapper {width: 400px !important;}
+}
+  </style>
+</head>
+<body>
+  <div id="wrap">
+    <header>
+      <a href="/"><img id="logo" src="/assets/logo.png"></a>
+      <a href="/home" id="logI">돌아가기</a>
+    </header>
+    <section>
+      <div class="page">
+        <div class="login-wrapper">
+            <h2 id="logT">비밀번호 변경</h2>
+            <form method="post" action="/api/changepassword" id="login-form">
+              <input type="text" name="id" required placeholder="기존 비밀번호">
+              <input type="password" name="password" required placeholder="신규 비밀번호">
+              <input type="password" name="password" required placeholder="비밀번호 확인">
+              <input type="submit" value="Change">
+            </form>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div id="none">
+    <h1>이런!</h1>
+    <h2>매우 특이한 스크린을 사용하는 것을 감지했습니다.</h2>
+    <h4>크기를 정상적으로 바꿔주세요.</h4>
+  </div>
+</body>
+</html>
