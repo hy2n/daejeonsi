@@ -14,6 +14,10 @@
   font-style: normal;
 }
 
+.chInput {
+      padding-left: 10px;
+    }
+
 #wrap {
   width: 100%;
   height: 100%;
@@ -173,9 +177,9 @@ input::-webkit-inner-spin-button {
         <div class="signup-wrapper">
             <h2 id="signupT">가입하기</h2>
             <form method="post" action="/api_register" id="signup-form">
-              <input type="text" name="id" required placeholder="계정 ID">
-              <input type="number" name="studentid" required placeholder="학번 4자리" onkeydown="return event.keyCode == 69 ? false : true">
-              <input type="password" name="password" required placeholder="비밀번호">
+              <input type="text" name="id" required placeholder="계정 ID" class="chInput">
+              <input type="number" name="studentid" class="chInput" required placeholder="학번 4자리" onkeydown="return event.keyCode == 69 ? false : true">
+              <input type="password" name="password" class="chInput" required placeholder="비밀번호">
               <h6 style="font-size: 0.4em;">계속하면 <a href="https://law.nanu.cc/legal/Privacy/" style="color: rgb(30, 30, 30);">개인정보처리약관</a>에<br>동의하게 됩니다.</h6>
               <input type="submit" value="가입하기">
             </form>
