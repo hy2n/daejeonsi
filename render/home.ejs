@@ -96,10 +96,10 @@ section {
   width: 80%;
   box-sizing: border-box;
   font-size: 18px;
-  background: linear-gradient(135deg, rgba(0, 0, 179, 0.3), rgba(86, 86, 255, 0.8));
-  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
 }
-
+th,td {
+  border: 1px solid black;
+}
 th {
   height: 30px;
 }
@@ -136,10 +136,9 @@ caption {
   height: 450px;
   box-sizing: border-box;
   font-size: 18px;
-  background: linear-gradient(135deg, rgba(0, 0, 179, 0.3), rgba(86, 86, 255, 0.8));
-  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
+  background: #dedede;
 }
-
+table {border-collapse:collapse ;}
 #info-cancle {text-align: center; float: right; color: black; width: 24px; cursor: pointer; margin-top: 20px; margin-right: 20px;}
 #info-cancle:hover {background-color: red;}
 #imgHolder {width: 100px; background-color: darkgray; height: 100px; border-radius: 50%; margin-bottom: 10px;}
@@ -185,7 +184,7 @@ caption {
           <h1 id="user-name"><%= username %>님</h1>
         </div>
         <div class="info-wrapper">
-          <h2 id="user-state">학생</h2><br>
+          <h2 id="user-state">user</h2>
           <h2 id="user-id">ID : <%= stduentID %></h2>
         </div>
         <div class="interact-wrapper">
