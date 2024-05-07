@@ -50,7 +50,7 @@ router.post('/', (req, res) => {
       const name = user.name;
 
       // JWT 토큰 생성
-      const token = jwt.sign({ id, studentid, name }, 'secret_key', { expiresIn: '6m' });
+      const token = jwt.sign({ id, studentid, name }, 'secret_key', { expiresIn: '1y' });
 
       // 쿠키에 토큰 저장
       const sixMonths = 6 * 30 * 24 * 60 * 60 * 1000; // 6개월
