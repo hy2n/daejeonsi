@@ -102,7 +102,7 @@ router.get('/teacherinfo/:name',verifyToken, (req, res) => {
         const teacher = teachers[name]; // 요청된 이름에 해당하는 데이터 찾기
   
         if (!teacher) {
-          res.status(404).send('Teacher not found');
+          res.status(404).send('Something went wrong..');
           return;
         }
   
