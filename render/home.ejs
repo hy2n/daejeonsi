@@ -295,7 +295,7 @@
       left: 50%;
       top: 120px;
       display: none;
-      background-color: rgb(229, 220, 116);
+      background-color: rgb(255, 255, 255);
       width: 400px;
       height: 70vh;
       box-sizing: border-box;
@@ -305,6 +305,9 @@
       margin-top: 20px;
       margin-left: 20px;
       text-align: left;
+    }
+    #Tvalue p {
+      font-size: 20px;
     }
     #T-cancle {
       font-size: 18px;
@@ -354,8 +357,9 @@
     </header>
     <section>
       <div id="Talert">
-        <div id="Tvalue"></div>
         <div id="T-cancle">X</div>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png" alt="" style="height: 100px;margin-left: 10px;margin-top: 40px;">
+        <div id="Tvalue"></div>
       </div>
       <div class="info">
         <div id="info-cancle">X</div>
@@ -488,7 +492,7 @@
       fetch(`/api/teacherinfo/${link}`)
         .then((response) => response.json())
         .then((data) => {
-          document.getElementById("Tvalue").innerHTML = `${data['teacher_name']} 선생님<br><br>교무실:${data['teacher_room']}`
+          document.getElementById("Tvalue").innerHTML = `${data['teacher_name']} 선생님<br><p>교무실:${data['teacher_room']}</p>`
           page.style.display = 'none';
           Tinfo.style.display = 'block';
         });
