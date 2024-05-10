@@ -70,6 +70,14 @@ app.get('/home', verifyToken, (req, res) => {
       q6st: classIdForToday[5].slice(0, -2),
       q7st: classIdForToday[6].slice(0, -2),
 
+      s1st: classIdForToday[0].slice(0, -2),
+      s2st: classIdForToday[1].slice(0, -2),
+      s3st: classIdForToday[2].slice(0, -2),
+      s4st: classIdForToday[3].slice(0, -2),
+      s5st: classIdForToday[4].slice(0, -2),
+      s6st: classIdForToday[5].slice(0, -2),
+      s7st: classIdForToday[6].slice(0, -2),
+
       m1st: isMoved[0],
       m2st: isMoved[1],
       m3st: isMoved[2],
