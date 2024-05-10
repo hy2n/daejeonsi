@@ -4,7 +4,7 @@ const cron = require('node-cron');
 const timetable = new Timetable();
 
 const teachersFilePath = './data/db/teachers.json';
-const runteachersJSON_SCAN = true;
+const runteachersJSON_SCAN = false;
 const serviceSchoolname = '대덕소프트웨어마이스터고등학교';
 
 function parser(user_grade, user_class) {
@@ -115,14 +115,14 @@ function parse_table(gra, cla) {
         .catch(error => console.error('Error:', error));
 }
 
-parseFunction(); //서버 파싱은 잠깐 끔
+//parseFunction();//테스트용
 // Cron 작업 설정
 cron.schedule('0 6,12,15,20 * * 1-5', () => { // 평일 6시/12시/15시/20시에 파싱 진행
     // 실행할 함수
     parseFunction();
 }, {
     scheduled: true,
-    timezone: "Asia/Seoul" // 해당 지역의 시간대에 맞게 설정하세요.
+    timezone: "Asia/Seoul" 
 });
 
 function parseFunction() {

@@ -203,5 +203,5 @@ function returnInfo(filePath) {
 }
 
 app.listen(port, () => {
-  console.log(`서버가 http://localhost:${port} 에서 실행되었습니다.`);
+  console.log(`서버가 http://localhost:${port} 에서 실행됨. 배포 일시: `+new Date().toLocaleString());
 });
