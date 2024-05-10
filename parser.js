@@ -82,8 +82,6 @@ function updateTeachersJSON(teachersInfo) {
 function createTimetable(result, grade, classNum) {
     const timetable = {};
     const movedTimetable = {};
-
-    // 각 요일별로 초기화
     for (let day = 0; day < 5; day++) { // 월화수목금(0,1,2,3,4)
         timetable[day] = [];
         movedTimetable[day] = [];

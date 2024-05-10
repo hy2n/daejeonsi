@@ -307,7 +307,7 @@
     <h4>크기를 정상적으로 바꿔주세요.</h4>
   </div>
   <div class="alert">
-    <p>시간표가 변경됐어요!</p>
+    <p>시간표 변경됨</p>
   </div>
   <div id="wrap">
     <header>
@@ -337,7 +337,7 @@
           <div id="changepassword" onclick="location.href='/make-a-princess'">
             <h4>비밀번호 변경</h4>
           </div>
-          <div id="resign" onclick="if (confirm('정말 삭제하시겠습니까?')) {location.href='/api/mypage/account-delete'}">
+          <div id="resign" onclick="location.href='/api/mypage/account-delete'">
             <h4>탈퇴</h4>
           </div>
         </div>
@@ -346,7 +346,7 @@
         <div class="table-wrapper">
           <table>
             <caption><b>
-                <%= userSector %>학년 <%= userRoom %>반의
+              <%= username %>님(<%= userRoom %>반)의
                     <br>오늘의 시간표
               </b></caption>
             <thead>
@@ -358,7 +358,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr style="background-color: <%= m1st %>;">
                 <td>1교시</td>
                 <td>
                   <%= q1st %>
@@ -366,52 +366,52 @@
                 <td><%= info1st %></td>
                 <td class="memo" onclick="sel(0)">NaN</td>
               </tr>
-              <tr>
+              <tr style="background-color: <%= m2st %>;">
                 <td>2교시</td>
                 <td>
                   <%= q2st %>
                 </td>
-                <td>기악수행평가 실시</td>
+                <td><%= info2st %></td>
                 <td class="memo" onclick="sel(1)">NaN</td>
               </tr>
-              <tr>
+              <tr style="background-color: <%= m3st %>;">
                 <td>3교시</td>
                 <td>
                   <%= q3st %>
                 </td>
-                <td>기악수행평가 실시</td>
+                <td><%= info3st %></td>
                 <td class="memo" onclick="sel(2)">NaN</td>
               </tr>
-              <tr>
+              <tr style="background-color: <%= m4st %>;">
                 <td>4교시</td>
                 <td>
                   <%= q4st %>
                 </td>
-                <td>기악수행평가 실시</td>
+                <td><%= info4st %></td>
                 <td class="memo" onclick="sel(3)">NaN</td>
               </tr>
-              <tr>
+              <tr style="background-color: <%= m5st %>;">
                 <td>5교시</td>
                 <td>
                   <%= q5st %>
                 </td>
-                <td>없음</td>
+                <td><%= info5st %></td>
                 <td class="memo" onclick="sel(4)">NaN</td>
               </tr>
-              <tr>
+              <tr style="background-color: <%= m6st %>;">
                 <td>6교시</td>
                 <td>
                   <%= q6st %>
                 </td>
-                <td>없음</td>
+                <td><%= info6st %></td>
                 <td class="memo" onclick="sel(5)">NaN</td>
               </tr>
-              <tr>
+              <tr style="background-color: <%= m7st %>;">
                 <td>7교시</td>
                 <td>
                   <%= q7st %>
                 </td>
-                <td>없음</td>
+                <td><%= info7st %></td>
                 <td class="memo" onclick="sel(6)">NaN</td>
               </tr>
             </tbody>
@@ -441,8 +441,7 @@
     var select = -1;
     var memoData = [['1', ''], ['1', ''], ['1', ''], ['1', ''], ['1', ''], ['1', ''], ['1', '']];
 
-    var condition =  <%= alertView %>; // 변수가 1이라고 가정
-
+    var condition =  <%= alertView %>; 
     if (!condition) {
       var elements = document.querySelectorAll('.alert'); // alert 클래스를 가진 모든 요소 선택
       for (var i = 0; i < elements.length; i++) {

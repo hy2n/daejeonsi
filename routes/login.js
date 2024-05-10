@@ -43,7 +43,7 @@ router.post('/', (req, res) => {
           if (result) return res.send('<script>alert("보안 정책에 의해 차단되었습니다. 잠시 후 다시 시도하세요.");window.history.back();</script>');
         };
         console.log("[알림] 사용자 DB접근");
-        return res.send('<script>alert("아이디나 비빌번호가 일치하지 않습니다. 계속해서 일치하지 않으면 서비스 이용이 제한됩니다.");window.history.back();</script>');
+        return res.send('<script>alert("아이디나 비빌번호가 일치하지 않습니다. 계속해서 일치하지 않으면 서비스 이용이 제한됩니다.");window.history.back();showAlert("비번틀림","비번틀림");</script>');
       }
 
       const studentid = user.studentid;

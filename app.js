@@ -54,6 +54,7 @@ app.get('/', (req, res) => { //기본 소개 페이지 서브
 app.get('/home', verifyToken, (req, res) => {
   const classIdForToday = returnTable("./data/tables/1-4.json");
   const infoForToday = returnInfo("./data/tables/1-4.json");
+  const isMoved = returnMoved("./data/tables/1-4.json");
   res.render('home',
     {
       stduentID: req.user.id,
@@ -68,9 +69,24 @@ app.get('/home', verifyToken, (req, res) => {
       q5st: classIdForToday[4].slice(0, -2),
       q6st: classIdForToday[5].slice(0, -2),
       q7st: classIdForToday[6].slice(0, -2),
+
+      m1st: isMoved[0],
+      m2st: isMoved[1],
+      m3st: isMoved[2],
+      m4st: isMoved[3],
+      m5st: isMoved[4],
+      m6st: isMoved[5],
+      m7st: isMoved[6],
+
       alertView: classIdForToday[7],
 
-      info1st: infoForToday[0]
+      info1st: infoForToday[0],
+      info2st: infoForToday[1],
+      info3st: infoForToday[2],
+      info4st: infoForToday[3],
+      info5st: infoForToday[4],
+      info6st: infoForToday[5],
+      info7st: infoForToday[6]
     }
   );
 });
@@ -129,6 +145,29 @@ function returnTable(filePath) {
   return classIds;
 }
 
+function returnMoved(filePath) {
+  // 오늘의 요일 구하기 (월=1, 화=2, ..., 금=5)
+  const todayWeekday = (DateTime.local().weekday - 1);
+
+  // 파일에서 JSON 데이터 읽기
+  const scheduleJson = fs.readFileSync(filePath, 'utf8');
+
+  // JSON 파싱
+  const schedule = JSON.parse(scheduleJson);
+
+  // 오늘의 요일에 해당하는 과목의 classid 찾기
+  const todaySchedule = schedule[todayWeekday.toString()];
+  const classIds = [];
+  for (const classInfo of todaySchedule) {
+    if (classInfo.moved) {
+      classIds.push("#ff9999");
+    }
+    else {
+      classIds.push("white");
+    }
+  }
+  return classIds;
+}
 
 function returnInfo(filePath) {
   // 오늘의 요일 구하기 (월=1, 화=2, ..., 금=5)
@@ -148,12 +187,10 @@ function returnInfo(filePath) {
     if (!classInfo.moved) {
       classIds.push("없어");
     } else {
-       classIds.push(classInfo.memo);
+      if (classInfo.memo == null) classIds.push("없음");
+      else classIds.push(classInfo.memo);
     }
   }
-  if (isMoved) classIds[7] = true;
-  else classIds[7] = false;
-  // 오늘의 일정이 없으면 빈 배열 반환
   return classIds;
 }
 
