@@ -143,7 +143,7 @@ function returnTable(filePath) {
   const classIds = [];
   for (const classInfo of todaySchedule) {
     classIds.push(classInfo.classid);
-    if (!classInfo.moved) {
+    if (classInfo.moved) {
       isMoved = true;
     }
   }
