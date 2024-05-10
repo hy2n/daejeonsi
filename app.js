@@ -26,7 +26,7 @@ app.use(cookieParser()); //JWT인증 위한 쿠키파서 사용
 
 app.use('/api_login', loginRouter); //로그인 라우터
 app.use('/api_register', joinRouter); //회원가입 라우터
-app.use('/api', mypageRouter); //마이페이지 라우터
+app.use('/api', mypageRouter); //API라우터
 
 //정적 파일 서브
 app.get('/join', (req, res) => { //가입페이지 서브
@@ -70,13 +70,13 @@ app.get('/home', verifyToken, (req, res) => {
       q6st: classIdForToday[5].slice(0, -2),
       q7st: classIdForToday[6].slice(0, -2),
 
-      s1st: classIdForToday[0].slice(0, -2),
-      s2st: classIdForToday[1].slice(0, -2),
-      s3st: classIdForToday[2].slice(0, -2),
-      s4st: classIdForToday[3].slice(0, -2),
-      s5st: classIdForToday[4].slice(0, -2),
-      s6st: classIdForToday[5].slice(0, -2),
-      s7st: classIdForToday[6].slice(0, -2),
+      s1st: classIdForToday[0],
+      s2st: classIdForToday[1],
+      s3st: classIdForToday[2],
+      s4st: classIdForToday[3],
+      s5st: classIdForToday[4],
+      s6st: classIdForToday[5],
+      s7st: classIdForToday[6],
 
       m1st: isMoved[0],
       m2st: isMoved[1],

@@ -22,8 +22,8 @@
     }
 
     #wrap {
-      width: 100%;
-      height: 100%;
+      width: 100vw;
+      height: 100vh;
       overflow: hidden;
     }
 
@@ -40,6 +40,8 @@
       -moz-user-select: none;
       -ms-use-select: none;
       user-select: none;
+      overflow-x: hidden;
+      overflow-y: hidden;
     }
 
 
@@ -168,7 +170,7 @@
       width: 400px;
       height: 450px;
       box-sizing: border-box;
-      font-size: 18px;
+      font-size: 15px;
       background: #ffffff;
     }
 
@@ -206,6 +208,7 @@
     }
 
     .info-wrapper {
+      font-size: 10px;
       margin-top: 10px;
       width: 380px;
       height: 40px;
@@ -217,7 +220,7 @@
     }
 
     #user-name {
-      font-size: 27px;
+      font-size: 19px;
     }
 
     .interact-wrapper {
@@ -269,7 +272,7 @@
       width: 80vw;
       height: 50px;
       background-color: rgb(146, 102, 249);
-      position: fixed;
+      position: absolute;
       margin-top: 60px;
       margin-left: 50vw;
       transform: translate(-50%);
@@ -280,6 +283,37 @@
 
     .alert p {
       margin-top: 10px;
+    }
+    #Talert {
+      padding-left: 30px;
+      padding-right: 30px;
+      transform: translateX(-50%);
+      position: absolute;
+      left: 50%;
+      top: 120px;
+      display: none;
+      background-color: blueviolet;
+      width: 400px;
+      height: 90px;
+      box-sizing: border-box;
+    }
+    #Tvalue {
+      float: left;
+      margin-top: 20px;
+      margin-left: 20px;
+      text-align: left;
+    }
+    #T-cancle {
+      text-align: center;
+      float: right;
+      color: black;
+      width: 24px;
+      cursor: pointer;
+      margin-top: 20px;
+      margin-right: 20px;
+    }
+    #T-cancle:hover {
+      background-color: red;
     }
 
     @media screen and (max-width: 312px) {
@@ -315,6 +349,10 @@
       <p id="open-info">내 정보</p>
     </header>
     <section>
+      <div id="Talert">
+        <div id="Tvalue"></div>
+        <div id="T-cancle">X</div>
+      </div>
       <div class="info">
         <div id="info-cancle">X</div>
         <div class="img-wrapper">
@@ -428,12 +466,7 @@
     </section>
   </div>
   <script>
-    // api요청
-    const getTinfo = (link) => {
-      fetch(`/api/teacherinfo/${link}`)
-        .then((response) => response.json())
-        .then((data) => Tinfo.innerHTML = `이름 : ${data['teacher_name']}<br>위치 : ${data['teacher_room']}`);
-    }
+    let Tinfo = document.getElementById('Talert');
     // 메모
     let memoView = document.getElementsByClassName("memo");
     let memoTitle = document.getElementById("title");
@@ -445,6 +478,17 @@
     // 메모 팝업 필드
     var select = -1;
     var memoData = [['1', ''], ['1', ''], ['1', ''], ['1', ''], ['1', ''], ['1', ''], ['1', '']];
+
+    // api 요청
+    const getTinfo = (link) => {
+      fetch(`/api/teacherinfo/${link}`)
+        .then((response) => response.json())
+        .then((data) => {
+          document.getElementById("Tvalue").innerHTML = `이름 : ${data['teacher_name']}<br>위치 : ${data['teacher_room']}`
+          page.style.display = 'none';
+          Tinfo.style.display = 'block';
+        });
+    }
 
     var condition =  <%= alertView %>; 
     if (!condition) {
@@ -500,12 +544,18 @@
     // info 열기
     document.getElementById("open-info").addEventListener("mousedown", function (e) {
       page.style.display = "none";
+      Tinfo.style.display = 'none';
       myInfo.style.display = "block";
     });
     // info 닫기
     document.getElementById("info-cancle").addEventListener("mousedown", function (e) {
       myInfo.style.display = "none";
       page.style.display = "block";
+    });
+
+    document.getElementById("T-cancle").addEventListener("mousedown", () => {
+      Tinfo.style.display = 'none';
+      page.style.display = 'block';
     });
 
     // 더미데이터 로드
