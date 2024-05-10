@@ -208,6 +208,7 @@
     }
 
     .info-wrapper {
+      overflow: visible !important;
       font-size: 10px;
       margin-top: 10px;
       width: 380px;
@@ -238,6 +239,7 @@
       text-align: center;
       color: white;
       cursor: pointer;
+      line-height: 25px;
     }
 
     #logout {
@@ -285,6 +287,7 @@
       margin-top: 10px;
     }
     #Talert {
+      font-size: 40px;
       padding-left: 30px;
       padding-right: 30px;
       transform: translateX(-50%);
@@ -292,9 +295,9 @@
       left: 50%;
       top: 120px;
       display: none;
-      background-color: blueviolet;
+      background-color: rgb(229, 220, 116);
       width: 400px;
-      height: 90px;
+      height: 70vh;
       box-sizing: border-box;
     }
     #Tvalue {
@@ -304,6 +307,7 @@
       text-align: left;
     }
     #T-cancle {
+      font-size: 18px;
       text-align: center;
       float: right;
       color: black;
@@ -484,7 +488,7 @@
       fetch(`/api/teacherinfo/${link}`)
         .then((response) => response.json())
         .then((data) => {
-          document.getElementById("Tvalue").innerHTML = `이름 : ${data['teacher_name']}<br>위치 : ${data['teacher_room']}`
+          document.getElementById("Tvalue").innerHTML = `${data['teacher_name']} 선생님<br><br>교무실:${data['teacher_room']}`
           page.style.display = 'none';
           Tinfo.style.display = 'block';
         });
