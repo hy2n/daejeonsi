@@ -13,7 +13,7 @@ router.use(bodyParser.json());
 const teacherFilePath = path.join(__dirname, './../data/db/teachers.json');
 
 // GET 요청을 처리하는 라우트 설정
-app.get('/:name', (req, res) => {
+app.get('/:name',verifyToken, (req, res) => {
     const name = req.params.name; // 요청된 이름 가져오기
   
     // 파일에서 데이터 읽기
