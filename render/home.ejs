@@ -360,7 +360,7 @@
             <tbody>
               <tr>
                 <td>1교시</td>
-                <td>
+                <td onclick="getTinfo('<%= s1st %>')">
                   <%= q1st %>
                 </td>
                 <td><%= info1st %></td>
@@ -368,7 +368,7 @@
               </tr>
               <tr>
                 <td>2교시</td>
-                <td>
+                <td onclick="getTinfo('<%= s2st %>')">
                   <%= q2st %>
                 </td>
                 <td></td>
@@ -376,7 +376,7 @@
               </tr>
               <tr>
                 <td>3교시</td>
-                <td>
+                <td onclick="getTinfo('<%= s3st %>')">
                   <%= q3st %>
                 </td>
                 <td></td>
@@ -384,7 +384,7 @@
               </tr>
               <tr>
                 <td>4교시</td>
-                <td>
+                <td onclick="getTinfo('<%= s4st %>')">
                   <%= q4st %>
                 </td>
                 <td></td>
@@ -392,7 +392,7 @@
               </tr>
               <tr>
                 <td>5교시</td>
-                <td>
+                <td onclick="getTinfo('<%= s5st %>')">
                   <%= q5st %>
                 </td>
                 <td></td>
@@ -400,7 +400,7 @@
               </tr>
               <tr>
                 <td>6교시</td>
-                <td>
+                <td onclick="getTinfo('<%= s6st %>')">
                   <%= q6st %>
                 </td>
                 <td></td>
@@ -408,7 +408,7 @@
               </tr>
               <tr>
                 <td>7교시</td>
-                <td>
+                <td onclick="getTinfo('<%= s7st %>')">
                   <%= q7st %>
                 </td>
                 <td></td>
@@ -428,7 +428,12 @@
     </section>
   </div>
   <script>
-    // api요청 망함
+    // api요청
+    const getTinfo = (link) => {
+      fetch(`/api/teacherinfo/${link}`)
+        .then((response) => response.json())
+        .then((data) => Tinfo.innerHTML = `이름 : ${data['teacher_name']}<br>위치 : ${data['teacher_room']}`);
+    }
     // 메모
     let memoView = document.getElementsByClassName("memo");
     let memoTitle = document.getElementById("title");
