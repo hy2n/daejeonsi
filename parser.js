@@ -105,7 +105,7 @@ function createTimetable(result, grade, classNum) {
         updateTeachersJSON(teachersInfo);
         console.log("[안내] 최초 선생님 DB등록을 마쳤습니다. 서버에 상당한 부하가 가므로 옵션을 비활성화 해주십시오.")
     }
-    console.log("[안내] " + grade + "학년" + classNum + "반 데이터 파싱 완료!")
+    console.log("[ "+new Date().toLocaleString()+" ] " + grade + "학년" + classNum + "반 데이터 파싱 완료!")
 }
 
 
@@ -115,7 +115,7 @@ function parse_table(gra, cla) {
         .catch(error => console.error('Error:', error));
 }
 
-//parseFunction();//테스트용
+parseFunction();//테스트용
 // Cron 작업 설정
 cron.schedule('0 6,12,15,20 * * 1-5', () => { // 평일 6시/12시/15시/20시에 파싱 진행
     // 실행할 함수
