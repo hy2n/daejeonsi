@@ -49,8 +49,6 @@ app.get('/login', (req, res) => { //로그인페이지 서브
 app.get('/', (req, res) => { //기본 소개 페이지 서브
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
-
-
 app.get('/home', verifyToken, (req, res) => {
   // req.user.studentid에서 숫자를 가져옵니다.
   const studentId = req.user.studentid;
@@ -59,49 +57,28 @@ app.get('/home', verifyToken, (req, res) => {
   const classIdForToday = returnTable(filePath);
   const infoForToday = returnInfo(filePath);
   const isMoved = returnMoved(filePath);
-  res.render('home',
-    {
-      stduentID: req.user.id,
-      userRoom: AnalyzeUserRoom(req.user.studentid, 1, 2),
-      userSector: AnalyzeUserRoom(req.user.studentid, 0, 1),
-      username: req.user.name,
+  const classIds = classIdForToday.slice(0, 7);
+  const isMovedFlags = isMoved.slice(0, 7);
+  const info = infoForToday.slice(0, 7);
 
-      q1st: classIdForToday[0].slice(0, -2),
-      q2st: classIdForToday[1].slice(0, -2),
-      q3st: classIdForToday[2].slice(0, -2),
-      q4st: classIdForToday[3].slice(0, -2),
-      q5st: classIdForToday[4].slice(0, -2),
-      q6st: classIdForToday[5].slice(0, -2),
-      q7st: classIdForToday[6].slice(0, -2),
+  const renderData = {
+    stduentID: req.user.id,
+    userRoom: AnalyzeUserRoom(req.user.studentid, 1, 2),
+    userSector: AnalyzeUserRoom(req.user.studentid, 0, 1),
+    username: req.user.name,
+    alertView: classIdForToday[7],
+  };
 
-      s1st: classIdForToday[0],
-      s2st: classIdForToday[1],
-      s3st: classIdForToday[2],
-      s4st: classIdForToday[3],
-      s5st: classIdForToday[4],
-      s6st: classIdForToday[5],
-      s7st: classIdForToday[6],
+  for (let i = 0; i < 7; i++) {
+    renderData[`q${i + 1}st`] = classIds[i].slice(0, -2);
+    renderData[`s${i + 1}st`] = classIds[i];
+    renderData[`m${i + 1}st`] = isMovedFlags[i];
+    renderData[`info${i + 1}st`] = info[i];
+  }
 
-      m1st: isMoved[0],
-      m2st: isMoved[1],
-      m3st: isMoved[2],
-      m4st: isMoved[3],
-      m5st: isMoved[4],
-      m6st: isMoved[5],
-      m7st: isMoved[6],
-
-      alertView: classIdForToday[7],
-
-      info1st: infoForToday[0],
-      info2st: infoForToday[1],
-      info3st: infoForToday[2],
-      info4st: infoForToday[3],
-      info5st: infoForToday[4],
-      info6st: infoForToday[5],
-      info7st: infoForToday[6]
-    }
-  );
+  res.render('home', renderData);
 });
+
 
 function verifyToken(req, res, next) {
   const token = req.cookies.token;
@@ -133,7 +110,7 @@ function AnalyzeUserRoom(input, slice_num, end_num) {
 
 function returnTable(filePath) {
   // 오늘의 요일 구하기 (월=1, 화=2, ..., 금=5)
-  const todayWeekday = (DateTime.local().weekday );
+  const todayWeekday = (DateTime.local().weekday - 1);
 
   // 파일에서 JSON 데이터 읽기
   const scheduleJson = fs.readFileSync(filePath, 'utf8');
@@ -159,7 +136,7 @@ function returnTable(filePath) {
 
 function returnMoved(filePath) {
   // 오늘의 요일 구하기 (월=1, 화=2, ..., 금=5)
-  const todayWeekday = (DateTime.local().weekday );
+  const todayWeekday = (DateTime.local().weekday - 1);
 
   // 파일에서 JSON 데이터 읽기
   const scheduleJson = fs.readFileSync(filePath, 'utf8');
@@ -182,7 +159,7 @@ function returnMoved(filePath) {
 }
 function returnInfo(filePath) {
   // 오늘의 요일 구하기 (월=1, 화=2, ..., 금=5)
-  const todayWeekday = (DateTime.local().weekday);
+  const todayWeekday = (DateTime.local().weekday - 1);
 
   // 파일에서 JSON 데이터 읽기
   const scheduleJson = fs.readFileSync(filePath, 'utf8');
@@ -202,7 +179,6 @@ function returnInfo(filePath) {
   const teachers = JSON.parse(teachersJson);
   const teacherNames = [];
   classIds.forEach(classId => {
-    console.log(teachers[classId])
     if (teachers[classId]) {
       teacherNames.push(teachers[classId].InterTeacher);
     } else {
@@ -214,5 +190,5 @@ function returnInfo(filePath) {
 }
 
 app.listen(port, () => {
-  console.log(`서버가 http://localhost:${port} 에서 실행됨. 배포 일시: ` + new Date().toLocaleString() + 'DayId' + (DateTime.local().weekday -1));
+  console.log(`서버가 http://localhost:${port} 에서 실행됨. 배포 일시: ` + new Date().toLocaleString() + 'DayId' + (DateTime.local().weekday - 1));
 });
