@@ -37,6 +37,9 @@ router.post('/', (req, res) => {
       }
 
       const { id, password, } = req.body;
+      if (containsForbiddenChars(id) && containsForbiddenChars(password)) {
+        return res.send('<script>alert("특수문자 및 공백은 사용할 수 없습니다");window.history.back();</script>');
+      }
       const user = users.find(user => user.id === id && user.password === hashPassword(password));
       if (!user) {
         security.UserTriggered(req.headers['x-forwarded-for'] || requestIp.getClientIp(req)), (result) => {
@@ -69,5 +72,18 @@ function hashPassword(password) {
   hash.update(password);
   return hash.digest('hex');
 }
+
+function containsForbiddenChars(str) {
+  const forbiddenChars = "/',.#$%^&*()-_=+ ";
+
+  for (let i = 0; i < str.length; i++) {
+    if (forbiddenChars.includes(str[i])) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 
 module.exports = router;
