@@ -52,9 +52,13 @@ app.get('/', (req, res) => { //기본 소개 페이지 서브
 
 
 app.get('/home', verifyToken, (req, res) => {
-  const classIdForToday = returnTable("./data/tables/1-4.json");
-  const infoForToday = returnInfo("./data/tables/1-4.json");
-  const isMoved = returnMoved("./data/tables/1-4.json");
+  // req.user.studentid에서 숫자를 가져옵니다.
+  const studentId = req.user.studentid;
+  const filePath = `./data/tables/${studentId.toString().substring(0, 1)}-${studentId.toString().substring(1, 2)}.json`;
+
+  const classIdForToday = returnTable(filePath);
+  const infoForToday = returnInfo(filePath);
+  const isMoved = returnMoved(filePath);
   res.render('home',
     {
       stduentID: req.user.id,
@@ -129,7 +133,7 @@ function AnalyzeUserRoom(input, slice_num, end_num) {
 
 function returnTable(filePath) {
   // 오늘의 요일 구하기 (월=1, 화=2, ..., 금=5)
-  const todayWeekday = (DateTime.local().weekday - 1);
+  const todayWeekday = (DateTime.local().weekday );
 
   // 파일에서 JSON 데이터 읽기
   const scheduleJson = fs.readFileSync(filePath, 'utf8');
@@ -155,7 +159,7 @@ function returnTable(filePath) {
 
 function returnMoved(filePath) {
   // 오늘의 요일 구하기 (월=1, 화=2, ..., 금=5)
-  const todayWeekday = (DateTime.local().weekday - 1);
+  const todayWeekday = (DateTime.local().weekday );
 
   // 파일에서 JSON 데이터 읽기
   const scheduleJson = fs.readFileSync(filePath, 'utf8');
@@ -176,10 +180,9 @@ function returnMoved(filePath) {
   }
   return classIds;
 }
-
 function returnInfo(filePath) {
   // 오늘의 요일 구하기 (월=1, 화=2, ..., 금=5)
-  const todayWeekday = (DateTime.local().weekday - 1);
+  const todayWeekday = (DateTime.local().weekday);
 
   // 파일에서 JSON 데이터 읽기
   const scheduleJson = fs.readFileSync(filePath, 'utf8');
@@ -192,16 +195,24 @@ function returnInfo(filePath) {
   const todaySchedule = schedule[todayWeekday.toString()];
   const classIds = [];
   for (const classInfo of todaySchedule) {
-    if (!classInfo.moved) {
-      classIds.push("없어");
-    } else {
-      if (classInfo.memo == null) classIds.push("없음");
-      else classIds.push(classInfo.memo);
-    }
+    classIds.push(classInfo.classid);
   }
-  return classIds;
+  // 강의 과목명에 해당하는 선생님들 찾기
+  const teachersJson = fs.readFileSync('./data/db/teachers.json', 'utf8');
+  const teachers = JSON.parse(teachersJson);
+  const teacherNames = [];
+  classIds.forEach(classId => {
+    console.log(teachers[classId])
+    if (teachers[classId]) {
+      teacherNames.push(teachers[classId].InterTeacher);
+    } else {
+      teacherNames.push("등록 안됨");
+    }
+  });
+
+  return teacherNames;
 }
 
 app.listen(port, () => {
-  console.log(`서버가 http://localhost:${port} 에서 실행됨. 배포 일시: `+new Date().toLocaleString());
+  console.log(`서버가 http://localhost:${port} 에서 실행됨. 배포 일시: ` + new Date().toLocaleString() + 'DayId' + (DateTime.local().weekday -1));
 });
