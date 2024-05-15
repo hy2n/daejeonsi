@@ -24,6 +24,10 @@ router.post('/', (req, res) => {
   }
   var { id, password, studentid } = req.body;
 
+  if (containsForbiddenChars(id) && containsForbiddenChars(password) && containsForbiddenChars(studentid)) {
+    return res.send('<script>alert("특수문자 및 공백은 사용할 수 없습니다");window.history.back();</script>');
+  }
+
   if (!id || !password || !studentid) {
     return res.status(401);
   }
@@ -79,6 +83,18 @@ function loadStudents() {
     console.error('파일을 읽어오는 중 에러 발생:', error);
     return null;
   }
+}
+
+function containsForbiddenChars(str) {
+  const forbiddenChars = "/',.#$%^&*()-_=+ ";
+
+  for (let i = 0; i < str.length; i++) {
+    if (forbiddenChars.includes(str[i])) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 module.exports = router;
