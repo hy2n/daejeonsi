@@ -75,7 +75,6 @@ app.get('/home', verifyToken, (req, res) => {
     renderData[`m${i + 1}st`] = isMovedFlags[i];
     renderData[`info${i + 1}st`] = info[i];
   }
-
   res.render('home', renderData);
 });
 
@@ -190,5 +189,5 @@ function returnInfo(filePath) {
 }
 
 app.listen(port, () => {
-  console.log(`서버가 http://localhost:${port} 에서 실행됨. 배포 일시: ` + new Date().toLocaleString() + 'DayId' + (DateTime.local().weekday - 1));
+  console.log(`서버가 http://localhost:${port} 에서 실행됨. 배포 일시: ` + new Date().toLocaleString());
 });
