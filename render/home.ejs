@@ -124,7 +124,7 @@ caption {
       height: 20vh;
       border-radius: 30px;
       padding: 10px;
-      display: flex;
+      display: none;
       flex-direction: column;
       justify-content: space-between;
     }
@@ -387,6 +387,7 @@ ybtn.addEventListener("click", () => {
 nbtn.addEventListener("click", () => {modal.style.display = 'none'});
 
 const showModal = (title, text) => {
+  modal.style.display = 'flex';
   document.getElementById('modal-title').innerText = title;
   document.getElementById('modal-text').innerText = text;
 }
