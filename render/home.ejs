@@ -322,6 +322,46 @@
     #T-cancle:hover {
       background-color: red;
     }
+    .modal
+    {
+      border: 1px solid #000;
+      width: 20vw;
+      height: 20vh;
+      border-radius: 30px;
+      padding: 10px;
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      position: fixed;
+      top: 70px;
+      left: auto;
+      right: auto;
+    }
+    .modal > P{
+      font-weight: bold;
+      font-size: x-large;
+    }
+    .modal > h3{
+      font-size: xx-large;
+    }
+    .buttons{
+      display: flex;
+      margin-left: auto;
+    }
+    .button {
+      color: #fff;
+      background-color: #000;
+      font-weight: bold;
+      border-radius: 5px;
+      width: 50px;
+      margin: 0 5px;
+      text-align: center;
+      cursor: pointer;
+    }
+    .buttons > div:hover {
+      transform: scale(1.05);
+      transition: all 0.1s;
+    }
 
     @media screen and (max-width: 312px) {
       .none {
@@ -351,6 +391,20 @@
     <p>시간표 변경됨</p>
   </div>
   <div id="wrap">
+    <div class="modal" id="modal">
+      <div>
+        <h3 id="modal-title">제목</h3>
+        <p id="modal-text">내용</p>
+      </div>
+      <div class="buttons">
+        <div class="button" id="y">
+          <span>확인</span>
+        </div>
+        <div class="button" id="n">
+          <span>취소</span>
+        </div>
+      </div>
+    </div>  
     <header>
       <a href="/"><img id="logo" src="/assets/logo.png"></a>
       <p id="open-info">내 정보</p>
@@ -565,6 +619,24 @@
       Tinfo.style.display = 'none';
       page.style.display = 'block';
     });
+
+    modalContents > h3, p
+
+const modal = document.getElementById('modal');
+const ybtn = document.getElementById('y');
+const nbtn = document.getElementById('n');
+ybtn.addEventListener("click", () => {
+  modal.style.display = 'none'
+  location.href='/api/mypage/account-delete'
+});
+nbtn.addEventListener("click", () => {modal.style.display = 'none'});
+
+const showModal = (title, text) => {
+  modal.style.display = 'flex';
+  document.getElementById('modal-title').innerText = title;
+  document.getElementById('modal-text').innerText = text;
+}
+
 
     // 더미데이터 로드
     loadMemo();
