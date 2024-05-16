@@ -1,249 +1,389 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <title>대전시</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <style>
-@charset "utf-8";
+    @charset "utf-8";
 
-@font-face {
-  font-family: 'SUITE-Regular';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
-  font-weight: 800;
-  font-style: normal;
-}
+    @font-face {
+      font-family: 'SUITE-Regular';
+      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+      font-weight: 800;
+      font-style: normal;
+    }
 
-@keyframes scale {
-  100% {transform: scale(110%);}
-}
+    @keyframes scale {
+      100% {
+        transform: scale(110%);
+      }
+    }
 
-#wrap {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
+    #wrap {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
 
-.none {
-  display: none;
-}
-
-* {
-  text-decoration: none;
-  font-family: 'SUITE-Regular';
-  padding: 0;
-  margin: 0;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-use-select: none;
-  user-select: none;
-}
-
-a {
-  color: aliceblue;
-}
-
-#logo {
-  max-height: 50px;
-  margin-left: 32px;
-  float: left;
-}
-
-#open-info {
-  margin-right: 32px;
-  cursor: pointer;
-}
-
-header {
-  background: rgb(0, 0, 0);
-  color: rgb(255, 255, 255);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 50px;
-  width: 100%;
-}
-
-section {
-  display: block;
-  justify-content: space-between;
-  align-items: center;
-  height: 550px;
-  position: sticky;
-  margin : 0 auto;
-  overflow: hidden;
-}
-
-.page {
-  top: 5%;
-  width: 100%;
-  height: inherit;
-  overflow: hidden;
-  font-size: 2.5em;
-  position: relative;
-  align-items: center;
-  text-align: center;
-}
-
-.table-wrapper{
-  position: absolute;
-  left: 50%;
-  top: 40%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 80%;
-  box-sizing: border-box;
-  padding-top: 10%;
-  font-size: 18px;
-  background: linear-gradient(135deg, rgba(0, 0, 179, 0.3), rgba(86, 86, 255, 0.8));
-  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
-}
-
-th {
-  height: 60px;
-}
-
-td {
-  height: 70px;
-}
-
-textarea {
-  resize: none;
-}
-
-caption {
-  padding-top: 2%;
-  font-size: 26px;
-}
-    .modal
-    {
-      border: 1px solid #000;
-      width: 20vw;
-      height: 20vh;
-      border-radius: 30px;
-      padding: 10px;
+    .none {
       display: none;
-      flex-direction: column;
-      justify-content: space-between;
     }
-    .modal > P{
-      font-weight: bold;
-      font-size: x-large;
+
+    * {
+      text-decoration: none;
+      font-family: 'SUITE-Regular';
+      padding: 0;
+      margin: 0;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-use-select: none;
+      user-select: none;
+      overflow-x: hidden;
+      overflow-y: hidden;
     }
-    .modal > h3{
-      font-size: xx-large;
+
+
+    #logo {
+      max-height: 50px;
+      margin-left: 32px;
+      float: left;
     }
-    .buttons{
-      display: flex;
-      margin-left: auto;
-    }
-    .button {
-      color: #fff;
-      background-color: #000;
-      font-weight: bold;
-      border-radius: 5px;
-      width: 50px;
-      margin: 0 5px;
-      text-align: center;
+
+    #open-info {
+      margin-right: 32px;
       cursor: pointer;
     }
-    .buttons > div:hover {
-      transform: scale(1.05);
-      transition: all 0.1s;
+
+    header {
+      background: rgb(0, 0, 0);
+      color: rgb(255, 255, 255);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 50px;
+      width: 100%;
     }
 
+    section {
+      display: block;
+      justify-content: space-between;
+      align-items: center;
+      height: 550px;
+      position: sticky;
+      margin: 0 auto;
+      overflow: hidden;
+    }
 
-.memo {cursor: text;}
-.memo:hover {color: greenyellow;}
-#memoSel {display: none; background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.4)); position: absolute; width: 200px; height: 100px;}
-#memoSel > * {float: left;}
-#cancle {float: right; color: black; width: 24px; cursor: pointer;}
-#cancle:hover {background-color: red;}
-#selContent {margin-left: 5px; margin-top: 2px;}
+    .page {
+      top: 30px;
+      width: 100%;
+      height: inherit;
+      overflow: hidden;
+      font-size: 2.5em;
+      position: relative;
+      align-items: center;
+      text-align: center;
+    }
 
-.info {
-  display: none;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  color: black;
-  width: 400px;
-  height: 500px;
-  box-sizing: border-box;
-  font-size: 18px;
-  background: linear-gradient(135deg, rgba(0, 0, 179, 0.3), rgba(86, 86, 255, 0.8));
-  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
-}
-#info-cancle {text-align: center; float: right; color: black; width: 24px; cursor: pointer; margin-top: 20px; margin-right: 20px;}
-#info-cancle:hover {background-color: red;}
-#imgHolder {width: 100px; background-color: darkgray; height: 100px; border-radius: 50%; margin-bottom: 10px;}
-.img-wrapper {width: 380px; height: 130px; margin-left: 20px; margin-top: 20px;}
-.info-wrapper {margin-top: 10px; width: 380px; height: 40px; margin-left: 20px;}
-.info-wrapper > * {float: left;}
-#user-name {font-size: 27px;}
-.interact-wrapper {margin-top: 50px; width: 400px; height: 80px; display: flex; justify-content: center;}
-.interact-wrapper > * {width: 80px; height: 25px; text-align: center; color: white; cursor: pointer;}
-#logout {background: linear-gradient(135deg, rgb(255, 66, 66), rgb(120, 0, 0));}
-#resign {margin-left: 20px; background: linear-gradient(135deg, rgb(120, 0, 0), rgb(0, 0, 0));}
-.interact-wrapper > *:hover {animation-name: scale; animation-duration: 0.5s; animation-fill-mode: forwards;}
+    .table-wrapper {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 80%;
+      box-sizing: border-box;
+      font-size: 18px;
+    }
 
-@media screen and (max-width: 312px) {
-  .none {display: block;}
-  #wrap {display: none;}
-}
+    th,
+    td {
+      border: 1px solid black;
+    }
 
-@media screen and (min-width: 500px) {
-  .table-wrapper {width: 400px;}
-}
+    th {
+      height: 30px;
+    }
+
+    td {
+      height: 40px;
+    }
+
+    textarea {
+      resize: none;
+    }
+
+    caption {
+      padding-top: 2%;
+      font-size: 26px;
+    }
+
+    .memo {
+      cursor: text;
+    }
+
+    .memo:hover {
+      color: greenyellow;
+    }
+
+    #memoSel {
+      display: none;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.4));
+      position: absolute;
+      width: 200px;
+      height: 100px;
+    }
+
+    #memoSel>* {
+      float: left;
+    }
+
+    #cancle {
+      float: right;
+      color: black;
+      width: 24px;
+      cursor: pointer;
+    }
+
+    #cancle:hover {
+      background-color: red;
+    }
+
+    #selContent {
+      margin-left: 5px;
+      margin-top: 2px;
+    }
+
+    .info {
+      display: none;
+      position: absolute;
+      left: 50%;
+      top: 60%;
+      padding-left: 30px;
+      padding-right: 30px;
+      transform: translate(-50%, -50%);
+      color: black;
+      width: 400px;
+      height: 450px;
+      box-sizing: border-box;
+      font-size: 15px;
+      background: #ffffff;
+    }
+
+    table {
+      border-collapse: collapse;
+    }
+
+    #info-cancle {
+      text-align: center;
+      float: right;
+      color: black;
+      width: 24px;
+      cursor: pointer;
+      margin-top: 20px;
+      margin-right: 20px;
+    }
+
+    #info-cancle:hover {
+      background-color: red;
+    }
+
+    #imgHolder {
+      width: 100px;
+      background-color: darkgray;
+      height: 100px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+
+    .img-wrapper {
+      width: 380px;
+      height: 130px;
+      margin-left: 20px;
+      margin-top: 20px;
+    }
+
+    .info-wrapper {
+      overflow: visible !important;
+      font-size: 10px;
+      margin-top: 10px;
+      width: 380px;
+      height: 40px;
+      margin-left: 20px;
+    }
+
+    .info-wrapper>* {
+      float: left;
+    }
+
+    #user-name {
+      font-size: 19px;
+    }
+
+    .interact-wrapper {
+      margin-right: 100px;
+      margin-top: 50px;
+      width: 400px;
+      height: 80px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .interact-wrapper>* {
+      width: 80px;
+      height: 25px;
+      text-align: center;
+      color: white;
+      cursor: pointer;
+      line-height: 25px;
+    }
+
+    #logout {
+      float: left;
+      margin-left: -70px;
+      background: black;
+      border-radius: 10px 10px 10px 10px;
+    }
+
+    #resign {
+      margin-left: 20px;
+      float: right;
+      background: black;
+      border-radius: 10px 10px 10px 10px;
+    }
+
+    #changepassword {
+      margin-left: 20px;
+      background: black;
+      font-size: 14px;
+      line-height: 25px;
+      border-radius: 10px 10px 10px 10px;
+    }
+
+    .interact-wrapper>*:hover {
+      animation-name: scale;
+      animation-duration: 0.5s;
+      animation-fill-mode: forwards;
+    }
+
+    .alert {
+      width: 80vw;
+      height: 50px;
+      background-color: rgb(146, 102, 249);
+      position: absolute;
+      margin-top: 60px;
+      margin-left: 50vw;
+      transform: translate(-50%);
+      text-align: center;
+      border-radius: 25px 25px 25px 25px;
+      font-size: 1.5em;
+    }
+
+    .alert p {
+      margin-top: 10px;
+    }
+    #Talert {
+      font-size: 40px;
+      padding-left: 30px;
+      padding-right: 30px;
+      transform: translateX(-50%);
+      position: absolute;
+      left: 50%;
+      top: 120px;
+      display: none;
+      background-color: rgb(255, 255, 255);
+      width: 400px;
+      height: 70vh;
+      box-sizing: border-box;
+    }
+    #Tvalue {
+      float: left;
+      margin-top: 20px;
+      margin-left: 20px;
+      text-align: left;
+    }
+    #Tvalue p {
+      font-size: 20px;
+    }
+    #T-cancle {
+      font-size: 18px;
+      text-align: center;
+      float: right;
+      color: black;
+      width: 24px;
+      cursor: pointer;
+      margin-top: 20px;
+      margin-right: 20px;
+    }
+    #T-cancle:hover {
+      background-color: red;
+    }
+
+    @media screen and (max-width: 312px) {
+      .none {
+        display: block;
+      }
+
+      #wrap {
+        display: none;
+      }
+    }
+
+    @media screen and (min-width: 500px) {
+      .table-wrapper {
+        width: 400px;
+      }
+    }
   </style>
 </head>
+
 <body>
-  
   <div class="none">
     <h1>이런!</h1>
     <h2>매우 특이한 스크린을 사용하는 것을 감지했습니다.</h2>
     <h4>크기를 정상적으로 바꿔주세요.</h4>
   </div>
+  <div class="alert">
+    <p>시간표 변경됨</p>
+  </div>
   <div id="wrap">
-    <div class="modal" id="modal">
-      <div>
-        <h3 id="modal-title">제목</h3>
-        <p id="modal-text">내용</p>
-      </div>
-      <div class="buttons">
-        <div class="button" id="y">
-          <span>확인</span>
-        </div>
-        <div class="button" id="n">
-          <span>취소</span>
-        </div>
-      </div>
-    </div>  
     <header>
       <a href="/"><img id="logo" src="/assets/logo.png"></a>
       <p id="open-info">내 정보</p>
     </header>
     <section>
+      <div id="Talert">
+        <div id="T-cancle">X</div>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png" alt="" style="height: 100px;margin-left: 10px;margin-top: 40px;">
+        <div id="Tvalue"></div>
+      </div>
       <div class="info">
         <div id="info-cancle">X</div>
         <div class="img-wrapper">
           <div id="imgHolder">
             <img src="/assets/userpic.png" width="100px" alt="user-img">
           </div>
-          <h1 id="user-name"><%= username %>님</h1>
+          <h1 id="user-name">
+            <%= username %>님
+          </h1>
         </div>
         <div class="info-wrapper">
-          <h2 id="user-state">학생</h2><br>
-          <h2 id="user-id">ID : <%= stduentID %></h2>
+          <h2 id="user-state">user</h2>
+          <h2 id="user-id">ID : <%= stduentID %>
+          </h2>
         </div>
         <div class="interact-wrapper">
           <div id="logout" onclick="location.href='/api/mypage/logout'">
             <h4>로그아웃</h4>
           </div>
-          <div id="resign" onclick="showModal('경고', '정말 삭제하시겠습니까?')">
+          <div id="changepassword" onclick="location.href='/make-a-princess'">
+            <h4>비밀번호 변경</h4>
+          </div>
+          <div id="resign" onclick="location.href='/api/mypage/account-delete'">
             <h4>탈퇴</h4>
           </div>
         </div>
@@ -251,46 +391,74 @@ caption {
       <div class="page">
         <div class="table-wrapper">
           <table>
-            <caption><b><%= userSector %>학년 <%= userRoom %>반의
-              <br>오늘의 시간표</b></caption>
+            <caption><b>
+              <%= username %>님(<%= userRoom %>반)의
+                    <br>오늘의 시간표
+              </b></caption>
             <thead>
               <tr>
                 <th width="80px">교시</th>
                 <th width="60px">과목</th>
-                <th width="140px">전달사항</th>
+                <th width="140px">담당 교사</th>
                 <th width="120px">메모</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr style="background-color: <%= m1st %>;" onclick="getTinfo('<%= s1st %>')">
                 <td>1교시</td>
-                <td><%= q1st %></td>
-                <td>기악수행평가 실시</td>
+                <td>
+                  <%= q1st %>
+                </td>
+                <td><%= info1st %></td>
                 <td class="memo" onclick="sel(0)">NaN</td>
               </tr>
-              <tr>
+              <tr style="background-color: <%= m2st %>;" onclick="getTinfo('<%= s2st %>')">
                 <td>2교시</td>
-                <td><%= q2st %></td>
-                <td>기악수행평가 실시</td>
+                <td>
+                  <%= q2st %>
+                </td>
+                <td><%= info2st %></td>
                 <td class="memo" onclick="sel(1)">NaN</td>
               </tr>
-              <tr>
+              <tr style="background-color: <%= m3st %>;" onclick="getTinfo('<%= s3st %>')">
                 <td>3교시</td>
-                <td><%= q3st %></td>
-                <td>기악수행평가 실시</td>
+                <td>
+                  <%= q3st %>
+                </td>
+                <td><%= info3st %></td>
                 <td class="memo" onclick="sel(2)">NaN</td>
               </tr>
-              <tr>
+              <tr style="background-color: <%= m4st %>;" onclick="getTinfo('<%= s4st %>')">
                 <td>4교시</td>
-                <td><%= q4st %></td>
-                <td>기악수행평가 실시</td>
+                <td>
+                  <%= q4st %>
+                </td>
+                <td><%= info4st %></td>
                 <td class="memo" onclick="sel(3)">NaN</td>
               </tr>
-              <tr>
+              <tr style="background-color: <%= m5st %>;" onclick="getTinfo('<%= s5st %>')">
                 <td>5교시</td>
-                <td><%= q5st %></td>
-                <td>없음</td>
+                <td>
+                  <%= q5st %>
+                </td>
+                <td><%= info5st %></td>
                 <td class="memo" onclick="sel(4)">NaN</td>
+              </tr>
+              <tr style="background-color: <%= m6st %>;" onclick="getTinfo('<%= s6st %>')">
+                <td>6교시</td>
+                <td>
+                  <%= q6st %>
+                </td>
+                <td><%= info6st %></td>
+                <td class="memo" onclick="sel(5)">NaN</td>
+              </tr>
+              <tr style="background-color: <%= m7st %>;" onclick="getTinfo('<%= s7st %>')">
+                <td>7교시</td>
+                <td>
+                  <%= q7st %>
+                </td>
+                <td><%= info7st %></td>
+                <td class="memo" onclick="sel(6)">NaN</td>
               </tr>
             </tbody>
         </div>
@@ -306,93 +474,99 @@ caption {
     </section>
   </div>
   <script>
-// api요청 망함
+    let Tinfo = document.getElementById('Talert');
+    // 메모
+    let memoView = document.getElementsByClassName("memo");
+    let memoTitle = document.getElementById("title");
+    let memoSel = document.getElementById("memoSel");
+    let memoInfo = document.getElementById("info");
+    // 페이지
+    let myInfo = document.getElementsByClassName("info")[0];
+    let page = document.getElementsByClassName("page")[0];
+    // 메모 팝업 필드
+    var select = -1;
+    var memoData = [['1', ''], ['1', ''], ['1', ''], ['1', ''], ['1', ''], ['1', ''], ['1', '']];
 
-// 메모
-let memoView = document.getElementsByClassName("memo");
-let memoTitle = document.getElementById("title");
-let memoSel = document.getElementById("memoSel");
-let memoInfo = document.getElementById("info");
-// 페이지
-let myInfo = document.getElementsByClassName("info")[0];
-let page = document.getElementsByClassName("page")[0];
-// 메모 팝업 필드
-var select = -1;
-var memoData = [["음악최고", ""], ["음악최고음악최고", ""], ["음악최고음악최고음악최고", ""], ["음악최고음악최고음악최고음악최고", ""], ["오늘은 의무귀가", ""]]
-
-// element display id로 변경 
-const show = (id) => {
-  document.getElementById(id).style.display = "block";
-}
-const hide = (id) => {
-  document.getElementById(id).style.display = "none";
-}
-
-// 로직 변경 필요
-const loadMemo = () => {
-  var temp;
-  for (var i = 0; i < 5; i++){
-    temp = memoData[i][0];
-    if (memoData[i][0].length > 14){
-      temp = memoData[i][0].slice(0,12)+"...";
+    // api 요청
+    const getTinfo = (link) => {
+      fetch(`/api/teacherinfo/${link}`)
+        .then((response) => response.json())
+        .then((data) => {
+          document.getElementById("Tvalue").innerHTML = `${data['teacher_name']} 선생님<br><p>교무실:${data['teacher_room']}</p>`
+          page.style.display = 'none';
+          Tinfo.style.display = 'block';
+        });
     }
-    memoView[i].innerHTML = temp;
-  }
-}
-// 메모 요소 클릭 이벤트
-const sel = (n) => {
-  select = n;
-  memoTitle.value = memoData[select][0];
-  memoInfo.value = memoData[select][1];
-  show("memoSel");
-}
-// 메모 닫기 버튼 클릭 이벤트
-const cancle = () => {
-  hide("memoSel");
-  loadMemo();
-}
-// 메모 내용 반영
-function update(){
-  memoData[select][0] = memoTitle.value;
-  memoData[select][1] = memoInfo.value;
-}
-// 로직 변경 필요
-document.addEventListener("mousemove", function(e){
-  if (memoSel.style.display == "none"){
-    memoSel.style.left = (e.clientX-200) + "px";
-    memoSel.style.top = (e.clientY-100) + "px";
-  }
-});
-// info 열기
-document.getElementById("open-info").addEventListener("mousedown", function(e){
-  page.style.display = "none";
-  myInfo.style.display = "block";
-});
-// info 닫기
-document.getElementById("info-cancle").addEventListener("mousedown", function(e){
-  myInfo.style.display = "none";
-  page.style.display = "block";
-});
 
+    var condition =  <%= alertView %>; 
+    if (!condition) {
+      var elements = document.querySelectorAll('.alert'); // alert 클래스를 가진 모든 요소 선택
+      for (var i = 0; i < elements.length; i++) {
+        elements[i].style.display = 'none'; // display 속성을 none으로 설정하여 숨김
+      }
+    }
 
-modalContents > h3, p
+    // element display id로 변경 
+    const show = (id) => {
+      document.getElementById(id).style.display = "block";
+    }
+    const hide = (id) => {
+      document.getElementById(id).style.display = "none";
+    }
 
-const modal = document.getElementById('modal');
-const ybtn = document.getElementById('y');
-const nbtn = document.getElementById('n');
-ybtn.addEventListener("click", () => {
-  modal.style.display = 'none'
-  location.href='/api/mypage/account-delete'
-});
-nbtn.addEventListener("click", () => {modal.style.display = 'none'});
+    // 로직 변경 필요
+    const loadMemo = () => {
+      var temp;
+      for (var i = 0; i < 7; i++) {
+        temp = memoData[i][0];
+        if (memoData[i][0].length > 14) {
+          temp = memoData[i][0].slice(0, 12) + "...";
+        }
+        memoView[i].innerHTML = temp;
+      }
+    }
+    // 메모 요소 클릭 이벤트
+    const sel = (n) => {
+      select = n;
+      memoTitle.value = memoData[select][0];
+      memoInfo.value = memoData[select][1];
+      show("memoSel");
+    }
+    // 메모 닫기 버튼 클릭 이벤트
+    const cancle = () => {
+      hide("memoSel");
+      loadMemo();
+    }
+    // 메모 내용 반영
+    function update() {
+      memoData[select][0] = memoTitle.value;
+      memoData[select][1] = memoInfo.value;
+    }
+    // 로직 변경 필요
+    document.addEventListener("mousemove", function (e) {
+      if (memoSel.style.display == "none") {
+        memoSel.style.left = (e.clientX - 200) + "px";
+        memoSel.style.top = (e.clientY - 100) + "px";
+      }
+    });
+    // info 열기
+    document.getElementById("open-info").addEventListener("mousedown", function (e) {
+      page.style.display = "none";
+      Tinfo.style.display = 'none';
+      myInfo.style.display = "block";
+    });
+    // info 닫기
+    document.getElementById("info-cancle").addEventListener("mousedown", function (e) {
+      myInfo.style.display = "none";
+      page.style.display = "block";
+    });
 
-const showModal = (title, text) => {
-  modal.style.display = 'flex';
-  document.getElementById('modal-title').innerText = title;
-  document.getElementById('modal-text').innerText = text;
-}
+    document.getElementById("T-cancle").addEventListener("mousedown", () => {
+      Tinfo.style.display = 'none';
+      page.style.display = 'block';
+    });
 
-// 더미데이터 로드
-loadMemo();
+    // 더미데이터 로드
+    loadMemo();
   </script>
 </body>
