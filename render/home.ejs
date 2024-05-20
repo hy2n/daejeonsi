@@ -380,7 +380,7 @@
           <div id="logout" onclick="location.href='/api/mypage/logout'">
             <h4>로그아웃</h4>
           </div>
-          <div id="changepassword" onclick="location.href='/make-a-princess'">
+          <div id="changepassword" onclick="alert('지금 변경 안됩니다.')">
             <h4>비밀번호 변경</h4>
           </div>
           <div id="resign" onclick="if(confirm('정말 탈퇴하시겠습니까?')){location.href='/api/mypage/account-delete'}">
@@ -404,57 +404,57 @@
               </tr>
             </thead>
             <tbody>
-              <tr style="background-color: <%= m1st %>;" onclick="getTinfo('<%= s1st %>')">
+              <tr style="background-color: <%= m1st %>;"">
                 <td>1교시</td>
-                <td>
+                <td onclick="getTinfo('<%= s1st %>')>
                   <%= q1st %>
                 </td>
                 <td><%= info1st %></td>
                 <td class="memo" onclick="sel(0)">NaN</td>
               </tr>
-              <tr style="background-color: <%= m2st %>;" onclick="getTinfo('<%= s2st %>')">
+              <tr style="background-color: <%= m2st %>;">
                 <td>2교시</td>
-                <td>
+                <td onclick="getTinfo('<%= s2st %>')">
                   <%= q2st %>
                 </td>
                 <td><%= info2st %></td>
                 <td class="memo" onclick="sel(1)">NaN</td>
               </tr>
-              <tr style="background-color: <%= m3st %>;" onclick="getTinfo('<%= s3st %>')">
+              <tr style="background-color: <%= m3st %>;">
                 <td>3교시</td>
-                <td>
+                <td onclick="getTinfo('<%= s3st %>')">
                   <%= q3st %>
                 </td>
                 <td><%= info3st %></td>
                 <td class="memo" onclick="sel(2)">NaN</td>
               </tr>
-              <tr style="background-color: <%= m4st %>;" onclick="getTinfo('<%= s4st %>')">
+              <tr style="background-color: <%= m4st %>;">
                 <td>4교시</td>
-                <td>
+                <td onclick="getTinfo('<%= s4st %>')">
                   <%= q4st %>
                 </td>
                 <td><%= info4st %></td>
                 <td class="memo" onclick="sel(3)">NaN</td>
               </tr>
-              <tr style="background-color: <%= m5st %>;" onclick="getTinfo('<%= s5st %>')">
+              <tr style="background-color: <%= m5st %>;">
                 <td>5교시</td>
-                <td>
+                <td onclick="getTinfo('<%= s5st %>')">
                   <%= q5st %>
                 </td>
                 <td><%= info5st %></td>
                 <td class="memo" onclick="sel(4)">NaN</td>
               </tr>
-              <tr style="background-color: <%= m6st %>;" onclick="getTinfo('<%= s6st %>')">
+              <tr style="background-color: <%= m6st %>;">
                 <td>6교시</td>
-                <td>
+                <td onclick="getTinfo('<%= s6st %>')">
                   <%= q6st %>
                 </td>
                 <td><%= info6st %></td>
                 <td class="memo" onclick="sel(5)">NaN</td>
               </tr>
-              <tr style="background-color: <%= m7st %>;" onclick="getTinfo('<%= s7st %>')">
+              <tr style="background-color: <%= m7st %>;">
                 <td>7교시</td>
-                <td>
+                <td onclick="getTinfo('<%= s7st %>')">
                   <%= q7st %>
                 </td>
                 <td><%= info7st %></td>
