@@ -383,7 +383,7 @@
           <div id="changepassword" onclick="location.href='/make-a-princess'">
             <h4>비밀번호 변경</h4>
           </div>
-          <div id="resign" onclick="location.href='/api/mypage/account-delete'">
+          <div id="resign" onclick="if(confirm('정말 탈퇴하시겠습니까?')){location.href='/api/mypage/account-delete'}">
             <h4>탈퇴</h4>
           </div>
         </div>
