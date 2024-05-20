@@ -620,23 +620,21 @@
       page.style.display = 'block';
     });
 
-
-const modal = document.getElementById('modal');
-const ybtn = document.getElementById('y');
-const nbtn = document.getElementById('n');
-ybtn.addEventListener("click", () => {
-  modal.style.display = 'none'
-  location.href='/api/mypage/account-delete'
-});
-nbtn.addEventListener("click", () => {modal.style.display = 'none'});
-
-const showModal = (title, text) => {
-  modal.style.display = 'flex';
-  document.getElementById('modal-title').innerText = title;
-  document.getElementById('modal-text').innerText = text;
-}
-
-
+    const modal = document.getElementById('modal');
+    const ybtn = document.getElementById('y');
+    const nbtn = document.getElementById('n');
+    ybtn.addEventListener("click", () => {
+      modal.style.display = 'none'
+      location.href='/api/mypage/account-delete'
+    });
+    nbtn.addEventListener("click", () => {modal.style.display = 'none'});
+    
+    const showModal = (title, text) => {
+      modal.style.display = 'flex';
+      document.getElementById('modal-title').innerText = title;
+      document.getElementById('modal-text').innerText = text;
+    }
+    
     // 더미데이터 로드
     loadMemo();
   </script>
