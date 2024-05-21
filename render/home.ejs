@@ -322,46 +322,6 @@
     #T-cancle:hover {
       background-color: red;
     }
-    .modal
-    {
-      border: 1px solid #000;
-      width: 20vw;
-      height: 20vh;
-      border-radius: 30px;
-      padding: 10px;
-      display: none;
-      flex-direction: column;
-      justify-content: space-between;
-      position: fixed;
-      top: 70px;
-      left: auto;
-      right: auto;
-    }
-    .modal > P{
-      font-weight: bold;
-      font-size: x-large;
-    }
-    .modal > h3{
-      font-size: xx-large;
-    }
-    .buttons{
-      display: flex;
-      margin-left: auto;
-    }
-    .button {
-      color: #fff;
-      background-color: #000;
-      font-weight: bold;
-      border-radius: 5px;
-      width: 50px;
-      margin: 0 5px;
-      text-align: center;
-      cursor: pointer;
-    }
-    .buttons > div:hover {
-      transform: scale(1.05);
-      transition: all 0.1s;
-    }
 
     @media screen and (max-width: 312px) {
       .none {
@@ -391,20 +351,6 @@
     <p>시간표 변경됨</p>
   </div>
   <div id="wrap">
-    <div class="modal" id="modal">
-      <div>
-        <h3 id="modal-title">제목</h3>
-        <p id="modal-text">내용</p>
-      </div>
-      <div class="buttons">
-        <div class="button" id="y">
-          <span>확인</span>
-        </div>
-        <div class="button" id="n">
-          <span>취소</span>
-        </div>
-      </div>
-    </div>  
     <header>
       <a href="/"><img id="logo" src="/assets/logo.png"></a>
       <p id="open-info">내 정보</p>
@@ -434,10 +380,10 @@
           <div id="logout" onclick="location.href='/api/mypage/logout'">
             <h4>로그아웃</h4>
           </div>
-          <div id="changepassword" onclick="location.href='/make-a-princess'">
+          <div id="changepassword" onclick="alert('지금 변경 안됩니다.')">
             <h4>비밀번호 변경</h4>
           </div>
-          <div id="resign" onclick="showModal">
+          <div id="resign" onclick="if(confirm('정말 탈퇴하시겠습니까?')){location.href='/api/mypage/account-delete'}">
             <h4>탈퇴</h4>
           </div>
         </div>
@@ -458,57 +404,57 @@
               </tr>
             </thead>
             <tbody>
-              <tr style="background-color: <%= m1st %>;" onclick="getTinfo('<%= s1st %>')">
+              <tr style="background-color: <%= m1st %>;"">
                 <td>1교시</td>
-                <td>
+                <td onclick="getTinfo('<%= s1st %>')>
                   <%= q1st %>
                 </td>
                 <td><%= info1st %></td>
                 <td class="memo" onclick="sel(0)">NaN</td>
               </tr>
-              <tr style="background-color: <%= m2st %>;" onclick="getTinfo('<%= s2st %>')">
+              <tr style="background-color: <%= m2st %>;">
                 <td>2교시</td>
-                <td>
+                <td onclick="getTinfo('<%= s2st %>')">
                   <%= q2st %>
                 </td>
                 <td><%= info2st %></td>
                 <td class="memo" onclick="sel(1)">NaN</td>
               </tr>
-              <tr style="background-color: <%= m3st %>;" onclick="getTinfo('<%= s3st %>')">
+              <tr style="background-color: <%= m3st %>;">
                 <td>3교시</td>
-                <td>
+                <td onclick="getTinfo('<%= s3st %>')">
                   <%= q3st %>
                 </td>
                 <td><%= info3st %></td>
                 <td class="memo" onclick="sel(2)">NaN</td>
               </tr>
-              <tr style="background-color: <%= m4st %>;" onclick="getTinfo('<%= s4st %>')">
+              <tr style="background-color: <%= m4st %>;">
                 <td>4교시</td>
-                <td>
+                <td onclick="getTinfo('<%= s4st %>')">
                   <%= q4st %>
                 </td>
                 <td><%= info4st %></td>
                 <td class="memo" onclick="sel(3)">NaN</td>
               </tr>
-              <tr style="background-color: <%= m5st %>;" onclick="getTinfo('<%= s5st %>')">
+              <tr style="background-color: <%= m5st %>;">
                 <td>5교시</td>
-                <td>
+                <td onclick="getTinfo('<%= s5st %>')">
                   <%= q5st %>
                 </td>
                 <td><%= info5st %></td>
                 <td class="memo" onclick="sel(4)">NaN</td>
               </tr>
-              <tr style="background-color: <%= m6st %>;" onclick="getTinfo('<%= s6st %>')">
+              <tr style="background-color: <%= m6st %>;">
                 <td>6교시</td>
-                <td>
+                <td onclick="getTinfo('<%= s6st %>')">
                   <%= q6st %>
                 </td>
                 <td><%= info6st %></td>
                 <td class="memo" onclick="sel(5)">NaN</td>
               </tr>
-              <tr style="background-color: <%= m7st %>;" onclick="getTinfo('<%= s7st %>')">
+              <tr style="background-color: <%= m7st %>;">
                 <td>7교시</td>
-                <td>
+                <td onclick="getTinfo('<%= s7st %>')">
                   <%= q7st %>
                 </td>
                 <td><%= info7st %></td>
@@ -522,7 +468,7 @@
         <div id="selContent">
           <input id="title" type="text" oninput="update()" size="20" placeholder="제목">
           <br>
-          <textarea id="info" oninput="update()" placeholder="내용" cols="19" rows="4"></textarea>
+          <textarea id="info" oninput="update()" placeholder="내용" cols="21" rows="4"></textarea>
         </div>
       </div>
     </section>
@@ -619,23 +565,6 @@
       Tinfo.style.display = 'none';
       page.style.display = 'block';
     });
-
-
-const modal = document.getElementById('modal');
-const ybtn = document.getElementById('y');
-const nbtn = document.getElementById('n');
-ybtn.addEventListener("click", () => {
-  modal.style.display = 'none'
-  location.href='/api/mypage/account-delete'
-});
-nbtn.addEventListener("click", () => {modal.style.display = 'none'});
-
-const showModal = (title, text) => {
-  modal.style.display = 'flex';
-  document.getElementById('modal-title').innerText = title;
-  document.getElementById('modal-text').innerText = text;
-}
-
 
     // 더미데이터 로드
     loadMemo();
