@@ -1,4 +1,5 @@
 const express = require('express');
+var bodyParser = require('body-parser')
 const jwt = require('jsonwebtoken');
 var cookieParser = require('cookie-parser');
 const fs = require('fs');
