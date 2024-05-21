@@ -1,5 +1,4 @@
 const express = require('express');
-var bodyParser = require('body-parser')
 const jwt = require('jsonwebtoken');
 var cookieParser = require('cookie-parser');
 const fs = require('fs');
@@ -50,7 +49,6 @@ app.get('/', (req, res) => { //기본 소개 페이지 서브
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 app.get('/home', verifyToken, (req, res) => {
-  // req.user.studentid에서 숫자를 가져옵니다.
   const studentId = req.user.studentid;
   const filePath = `./data/tables/${studentId.toString().substring(0, 1)}-${studentId.toString().substring(1, 2)}.json`;
 
@@ -94,7 +92,6 @@ function verifyToken(req, res, next) {
 }
 
 function AnalyzeUserRoom(input, slice_num, end_num) {
-  // 입력이 문자열이 아닌 경우 문자열로 변환
   input = String(input);
 
   // 문자열의 길이가 4 미만인 경우 예외처리
@@ -134,7 +131,6 @@ function returnTable(filePath) {
 }
 
 function returnMoved(filePath) {
-  // 오늘의 요일 구하기 (월=1, 화=2, ..., 금=5)
   const todayWeekday = (DateTime.local().weekday - 1);
 
   // 파일에서 JSON 데이터 읽기
@@ -157,7 +153,6 @@ function returnMoved(filePath) {
   return classIds;
 }
 function returnInfo(filePath) {
-  // 오늘의 요일 구하기 (월=1, 화=2, ..., 금=5)
   const todayWeekday = (DateTime.local().weekday - 1);
 
   // 파일에서 JSON 데이터 읽기
@@ -181,12 +176,13 @@ function returnInfo(filePath) {
     if (teachers[classId]) {
       teacherNames.push(teachers[classId].InterTeacher);
     } else {
-      teacherNames.push("등록 안됨");
+      teacherNames.push("N/A");
     }
   });
 
   return teacherNames;
 }
+
 app.listen(port, () => {
   console.log(`서버가 http://localhost:${port} 에서 실행됨. 배포 일시: ` + new Date().toLocaleString());
 });
