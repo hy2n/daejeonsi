@@ -4,7 +4,7 @@
   "description": "대덕소마고 대신 전해주는 시간표 (대전시)",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node app.js"
   },
   "keywords": [],
   "author": "",
