@@ -81,7 +81,6 @@ function containsForbiddenChars(str) {
       return true;
     }
   }
-
   return false;
 }
 

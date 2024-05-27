@@ -180,7 +180,6 @@ function returnInfo(filePath) {
       teacherNames.push("N/A");
     }
   });
-
   return teacherNames;
 }
 
