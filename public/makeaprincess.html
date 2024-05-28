@@ -109,7 +109,7 @@ label > p {
   color: #6A24FE;
   margin-bottom: 20px;
 }
-#login-form > input{
+#change-form > input{
   width: 100%;
   height: 48px;
   box-sizing: border-box;
@@ -117,10 +117,10 @@ label > p {
   border-radius: 6px;
   background-color: #F8F8F8;
 }
-#login-form > input::placeholder{
+#change-form > input::placeholder{
   color: #D2D2D2;
 }
-#login-form > input[type="submit"]{
+#change-form > input[type="button"]{
   color: #fff;
   font-size: 16px;
   background-color: #6A24FE;
@@ -167,11 +167,11 @@ label > p {
       <div class="page">
         <div class="login-wrapper">
             <h2 id="logT">비밀번호 변경</h2>
-            <form method="post" action="/api/changepwd" id="login-form">
-              <input type="text" name="id" required placeholder="기존 비밀번호">
-              <input type="password" name="password" required placeholder="신규 비밀번호">
-              <input type="password" name="password" required placeholder="비밀번호 확인">
-              <input type="submit" value="Change">
+            <form method="post" action="/api/changepwd" id="change-form">
+              <input type="password" id="oldpw" name="id" required placeholder="기존 비밀번호">
+              <input type="password" id="newpw" name="password" required placeholder="신규 비밀번호">
+              <input type="password" id="checkpw" name="password" required placeholder="비밀번호 확인">
+              <input type="button" value="Change" onclick="checkPW()">
             </form>
         </div>
       </div>
@@ -182,5 +182,23 @@ label > p {
     <h2>매우 특이한 스크린을 사용하는 것을 감지했습니다.</h2>
     <h4>크기를 정상적으로 바꿔주세요.</h4>
   </div>
+  <script>
+    const PW = document.getElementById("newpw");
+    const OLD = document.getElementById("oldpw");
+    const CHECK = document.getElementById("checkpw");
+    const FORM = document.getElementById("change-form");
+    const checkPW = () => {
+      if (PW.value == "" || OLD.value == ""){
+        alert("값을 전부 입력해주세요");
+        return;
+      }
+      if (PW.value == CHECK.value){
+        FORM.submit();
+      }
+      else {
+        alert("비밀번호가 일치하지 않아요");
+      }
+    }
+  </script>
 </body>
 </html>
