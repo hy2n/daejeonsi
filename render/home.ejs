@@ -71,7 +71,7 @@
       justify-content: space-between;
       align-items: center;
       height: 550px;
-      position: sticky;
+      position: relative;
       margin: 0 auto;
       overflow: hidden;
     }
@@ -158,6 +158,10 @@
       margin-top: 2px;
     }
 
+    #selContent > input, textarea {
+      width: 160px;
+    }
+
     .info {
       display: none;
       position: absolute;
@@ -203,8 +207,10 @@
     .img-wrapper {
       width: 380px;
       height: 130px;
-      margin-left: 20px;
-      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
 
     .info-wrapper {
@@ -213,11 +219,13 @@
       margin-top: 10px;
       width: 380px;
       height: 40px;
-      margin-left: 20px;
+      display: flex;
+      justify-content: center;
     }
 
     .info-wrapper>* {
       float: left;
+      text-align: center;
     }
 
     #user-name {
@@ -225,10 +233,8 @@
     }
 
     .interact-wrapper {
-      margin-right: 100px;
-      margin-top: 50px;
-      width: 400px;
-      height: 80px;
+      min-width: 320px;
+      height: 100px;
       display: flex;
       justify-content: center;
     }
@@ -237,6 +243,7 @@
       width: 80px;
       height: 25px;
       text-align: center;
+      font-size: 13px;
       color: white;
       cursor: pointer;
       line-height: 25px;
@@ -244,7 +251,6 @@
 
     #logout {
       float: left;
-      margin-left: -70px;
       background: black;
       border-radius: 10px 10px 10px 10px;
     }
@@ -259,7 +265,6 @@
     #changepassword {
       margin-left: 20px;
       background: black;
-      font-size: 14px;
       line-height: 25px;
       border-radius: 10px 10px 10px 10px;
     }
@@ -328,7 +333,9 @@
       .none {
         display: block;
       }
-
+      .alert {
+        display: none;
+      }
       #wrap {
         display: none;
       }
@@ -381,7 +388,7 @@
           <div id="logout" onclick="location.href='/api/mypage/logout'">
             <h4>로그아웃</h4>
           </div>
-          <div id="changepassword" onclick="alert('지금 변경 안됩니다.')">
+          <div id="changepassword" onclick="location.href='/api/mypage/makeaprincess">
             <h4>비밀번호 변경</h4>
           </div>
           <div id="resign" onclick="if(confirm('정말 탈퇴하시겠습니까?')){location.href='/api/mypage/account-delete'}">
@@ -520,10 +527,10 @@
       var temp;
       for (var i = 0; i < 7; i++) {
         temp = memoData[i][0];
-        if (memoData[i][0].length > 14) {
-          temp = memoData[i][0].slice(0, 12) + "...";
+        if (memoData[i][0].length > 10) {
+          temp = memoData[i][0].slice(0, 7) + "...";
         }
-        memoView[i].innerHTML = temp;
+        memoView[i].innerText = temp;
       }
     }
     // 메모 요소 클릭 이벤트
@@ -543,13 +550,6 @@
       memoData[select][0] = memoTitle.value;
       memoData[select][1] = memoInfo.value;
     }
-    // 로직 변경 필요
-    document.addEventListener("mousemove", function (e) {
-      if (memoSel.style.display == "none") {
-        memoSel.style.left = (e.clientX - 200) + "px";
-        memoSel.style.top = (e.clientY - 100) + "px";
-      }
-    });
     // info 열기
     document.getElementById("open-info").addEventListener("mousedown", function (e) {
       page.style.display = "none";
