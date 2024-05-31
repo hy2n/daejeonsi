@@ -210,7 +210,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
     }
 
     .info-wrapper {
@@ -414,7 +414,7 @@
             <tbody>
               <tr style="background-color: <%= m1st %>;">
                 <td>1교시</td>
-                <td onclick="getTinfo('<%= s1st %>')>
+                <td onclick="getTinfo('<%= s1st %>')">
                   <%= q1st %>
                 </td>
                 <td><%= info1st %></td>
