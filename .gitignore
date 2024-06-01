@@ -1,2 +1,3 @@
 *.json
 security.js
+.env
