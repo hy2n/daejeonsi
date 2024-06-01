@@ -79,33 +79,50 @@ function updateTeachersJSON(teachersInfo) {
     // Write updated JSON back to file
     fs.writeFileSync(teachersFilePath, JSON.stringify(teachersJSON, null, 2));
 }
+
 function createTimetable(result, grade, classNum) {
-    const timetable = {};
-    const movedTimetable = {};
-    for (let day = 0; day < 5; day++) { // 월화수목금(0,1,2,3,4)
-        timetable[day] = [];
-        movedTimetable[day] = [];
-        for (let hour = 0; hour < 8; hour++) { // 1교시(0) ~ 7교시(7)
-            timetable[day].push(result[day][hour]);
-            if (result[day][hour].moved && result[day][hour].classid !== '') { // moved:true 이고 classid가 비어있지 않은 경우에만 추가
-                movedTimetable[day].push(result[day][hour]);
+    try {
+        const timetable = {};
+        const movedTimetable = {};
+        
+        const createNoClassDay = () => {
+            const noClassDay = [];
+            for (let hour = 0; hour < 8; hour++) {
+                noClassDay.push({ classid: '', moved: false, subject: '수업 없음' });
+            }
+            return noClassDay;
+        };
+        
+        for (let day = 0; day < 7; day++) { // Monday to Sunday (0-6)
+            if (day < 5) { // Monday to Friday
+                timetable[day] = [];
+                movedTimetable[day] = [];
+                
+                for (let hour = 0; hour < 8; hour++) { // 1st to 8th period (0-7)
+                    timetable[day].push(result[day][hour]);
+                    
+                    if (result[day][hour].moved && result[day][hour].classid !== '') { 
+                        movedTimetable[day].push(result[day][hour]);
+                    }
+                }
+            } else { 
+                timetable[day] = createNoClassDay();
+                movedTimetable[day] = []; 
             }
         }
+        fs.writeFileSync(`./data/tables/${grade}-${classNum}.json`, JSON.stringify(timetable, null, 2), 'utf8');
+        
+        fs.writeFileSync(`./data/tables/${grade}-${classNum}-moved.json`, JSON.stringify(movedTimetable, null, 2), 'utf8');
+        if (runteachersJSON_SCAN) {
+            const teachersInfo = createTeachersInfo(result);
+            updateTeachersJSON(teachersInfo);
+            console.log("[안내] 최초 선생님 DB등록을 마쳤습니다. 서버에 상당한 부하가 가므로 옵션을 비활성화 해주십시오.");
+        }
+        
+        console.log(`[ ${new Date().toLocaleString()} ] ${grade}학년 ${classNum}반 데이터 파싱 완료!`);
+    } catch (error) {
+        console.error("Error creating timetable:", error);
     }
-
-    // JSON 파일로 저장
-    const timetableJSON = JSON.stringify(timetable, null, 2);
-    fs.writeFileSync(`./data/tables/${grade}-${classNum}.json`, timetableJSON);
-
-    const movedTimetableJSON = JSON.stringify(movedTimetable, null, 2);
-    fs.writeFileSync(`./data/tables/${grade}-${classNum}-moved.json`, movedTimetableJSON);
-
-    if (runteachersJSON_SCAN) { //선생님 스캔 활성화된 경우에만 선생님 정보 추가
-        const teachersInfo = createTeachersInfo(result);
-        updateTeachersJSON(teachersInfo);
-        console.log("[안내] 최초 선생님 DB등록을 마쳤습니다. 서버에 상당한 부하가 가므로 옵션을 비활성화 해주십시오.")
-    }
-    console.log("[ "+new Date().toLocaleString()+" ] " + grade + "학년" + classNum + "반 데이터 파싱 완료!")
 }
 
 
