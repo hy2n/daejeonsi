@@ -329,6 +329,31 @@
       background-color: red;
     }
 
+    
+    .navigator {
+      width: 140px;
+      height: 20px;
+      display: flex;
+      justify-content: space-between;
+      position: absolute;
+      bottom: 25px;
+    }
+    .navigator > * {
+      border: none;
+      padding: 4px;
+      line-height: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.5s;
+    }
+    .navigator > *:hover {
+      transform: scale(1.15);
+    }
+    .selected-date {
+      background-color: black;
+      color: white;
+    }
+
     @media screen and (max-width: 312px) {
       .none {
         display: block;
@@ -470,6 +495,11 @@
               </tr>
             </tbody>
         </div>
+        <div class="navigator">
+          <button id="yester" onclick="navigate(-1)">어제</button>
+          <button id="now" onclick="navigate(0)">오늘</button>
+          <button id="tomorrow" onclick="navigate(1)">내일</button>
+        </div>
       </div>
       <div id="memoSel">
         <div id="cancle" onclick="cancle()">X</div>
@@ -482,6 +512,20 @@
     </section>
   </div>
   <script>
+    const now = new Date().getDay()-1;
+    const navigate = (value) => {
+      if (value == 0){ window.location.href = `home/`; return; };
+      window.location.href = `home/${now-value}`;
+    }
+
+    if ("/" == window.location.pathname.slice(5)){
+      document.querySelector("#now").classList.add("selected-date");
+    } else if(`/?${now-1}` == window.location.pathname.slice(5)){
+      document.getElementById("yester").classList.add("selected-date");
+    } else {
+      document.getElementById("tomorrow").classList.add("selected-date");
+    }
+
     let Tinfo = document.getElementById('Talert');
     // 메모
     let memoView = document.getElementsByClassName("memo");
