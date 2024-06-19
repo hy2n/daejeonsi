@@ -73,7 +73,6 @@
       height: 550px;
       position: relative;
       margin: 0 auto;
-      overflow-x: hidden;
     }
 
     .page {
@@ -98,6 +97,7 @@
       width: 80%;
       box-sizing: border-box;
       font-size: 18px;
+      overflow-y: visible;
     }
 
     th,
@@ -515,7 +515,7 @@
     const now = new Date().getDay()-1;
     const navigate = (value) => {
       if (value == 0){ window.location.href = `https://daejeonsi.nanu.cc/home`; return; };
-      window.location.href = `/${now-value}`;
+      window.location.href = `/${now+value}`;
     }
 
     if ("/" == window.location.pathname.slice(5)){
