@@ -73,7 +73,7 @@
       height: 550px;
       position: relative;
       margin: 0 auto;
-      overflow: hidden;
+      overflow-x: hidden;
     }
 
     .page {
@@ -336,7 +336,7 @@
       display: flex;
       justify-content: space-between;
       position: absolute;
-      bottom: 25px;
+      bottom: -10px;
     }
     .navigator > * {
       border: none;
@@ -514,13 +514,13 @@
   <script>
     const now = new Date().getDay()-1;
     const navigate = (value) => {
-      if (value == 0){ window.location.href = `home/`; return; };
-      window.location.href = `home/${now-value}`;
+      if (value == 0){ window.location.href = `https://daejeonsi.nanu.cc/home`; return; };
+      window.location.href = `/${now-value}`;
     }
 
     if ("/" == window.location.pathname.slice(5)){
       document.querySelector("#now").classList.add("selected-date");
-    } else if(`/?${now-1}` == window.location.pathname.slice(5)){
+    } else if(`/${now-1}` == window.location.pathname.slice(5)){
       document.getElementById("yester").classList.add("selected-date");
     } else {
       document.getElementById("tomorrow").classList.add("selected-date");
