@@ -515,7 +515,7 @@
     const now = new Date().getDay()-1;
     const navigate = (value) => {
       if (value == 0){ window.location.href = `https://daejeonsi.nanu.cc/home`; return; };
-      window.location.href = `/${now+value}`;
+      window.location.href = `/home/${now+value}`;
     }
 
     if ("https://daejeonsi.nanu.cc/home" == window.location){
