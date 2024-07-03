@@ -511,9 +511,11 @@
     </section>
   </div>
   <script>
-    const now = new Date().getDay()-1;
+    const now = new Date().getDay();
     const navigate = (value) => {
-      if (value == 0){ window.location.href = `https://daejeonsi.nanu.cc/home`; return; };
+      if (now == 7 && value == 1){ alert("다음 주는 볼 수 없습니다."); return; }
+      if (now == 1 && value == -1) { alert("지난 주는 볼 수 없습니다."); return; }
+      if (value == 0){ window.location.href = `https://daejeonsi.nanu.cc/home`; return; }
       window.location.href = `/home/${now+value}`;
     }
 
