@@ -35,9 +35,8 @@ app.get('/join', (req, res) => { //가입페이지 서브
 
 app.get('/login', (req, res) => { //로그인페이지 서브
   const token = req.cookies.token;
-  var nonPassedUser = true;
   if (token) {
-    jwt.verify(token, 'secret_key', (err, decoded) => {
+    jwt.verify(token, 'secret', (err, decoded) => {
       if (!err) {
         return res.send('<meta http-equiv="refresh" content="0; url=/home"></meta><script>alert("자동로그인에 성공하였습니다. 필요시 [내 정보]에서 로그아웃 해 주세요");</script>');
       }
@@ -49,13 +48,23 @@ app.get('/login', (req, res) => { //로그인페이지 서브
 app.get('/', (req, res) => { //기본 소개 페이지 서브
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
-app.get('/home', verifyToken, (req, res) => {
+app.get(['/home', '/home/:day'], verifyToken, (req, res) => {
+  // req.user.studentid에서 숫자를 가져옵니다.
   const studentId = req.user.studentid;
   const filePath = `./data/tables/${studentId.toString().substring(0, 1)}-${studentId.toString().substring(1, 2)}.json`;
+  let todayWeekday;
+  if (!req.params.day) {
+    todayWeekday = DateTime.local().weekday - 1; // 월요일이 1, 일요일이 7이므로 -1
+  } else if (req.params.day < 7 && req.params.day > 0) {
+    todayWeekday = req.params.day;
+  } else {
+    todayWeekday = 1;
+  }
 
-  const classIdForToday = returnTable(filePath);
-  const infoForToday = returnInfo(filePath);
-  const isMoved = returnMoved(filePath);
+  
+  const classIdForToday = returnTable(filePath,todayWeekday);
+  const infoForToday = returnInfo(filePath,todayWeekday);
+  const isMoved = returnMoved(filePath,todayWeekday);
   const classIds = classIdForToday.slice(0, 7);
   const isMovedFlags = isMoved.slice(0, 7);
   const info = infoForToday.slice(0, 7);
@@ -74,6 +83,7 @@ app.get('/home', verifyToken, (req, res) => {
     renderData[`m${i + 1}st`] = isMovedFlags[i];
     renderData[`info${i + 1}st`] = info[i];
   }
+
   res.render('home', renderData);
 });
 
@@ -83,7 +93,7 @@ function verifyToken(req, res, next) {
   if (!token) {
     return res.send('<meta http-equiv="refresh" content="0; url=/"></meta><script>alert("인증에 실패했습니다. 다시 로그인 해 주세요");</script>');
   }
-  jwt.verify(token, 'secret_key', (err, decoded) => {
+  jwt.verify(token, 'secret', (err, decoded) => {
     if (err) {
       return res.send('<meta http-equiv="refresh" content="0; url=/"></meta><script>alert("인증에 실패했습니다. 다시 로그인 해 주세요");</script>');
     }
@@ -93,6 +103,7 @@ function verifyToken(req, res, next) {
 }
 
 function AnalyzeUserRoom(input, slice_num, end_num) {
+  // 입력이 문자열이 아닌 경우 문자열로 변환
   input = String(input);
 
   // 문자열의 길이가 4 미만인 경우 예외처리
@@ -105,10 +116,8 @@ function AnalyzeUserRoom(input, slice_num, end_num) {
 }
 
 
-function returnTable(filePath) {
-  // 오늘의 요일 구하기 (월=1, 화=2, ..., 금=5)
-  const todayWeekday = (DateTime.local().weekday - 1);
-
+function returnTable(filePath,date) {
+  const todayWeekday = date;
   // 파일에서 JSON 데이터 읽기
   const scheduleJson = fs.readFileSync(filePath, 'utf8');
 
@@ -131,8 +140,9 @@ function returnTable(filePath) {
   return classIds;
 }
 
-function returnMoved(filePath) {
-  const todayWeekday = (DateTime.local().weekday - 1);
+function returnMoved(filePath,date) {
+  // 오늘의 요일 구하기 (월=1, 화=2, ..., 금=5)
+  const todayWeekday = date;
 
   // 파일에서 JSON 데이터 읽기
   const scheduleJson = fs.readFileSync(filePath, 'utf8');
@@ -153,8 +163,8 @@ function returnMoved(filePath) {
   }
   return classIds;
 }
-function returnInfo(filePath) {
-  const todayWeekday = (DateTime.local().weekday - 1);
+function returnInfo(filePath,date) {
+  const todayWeekday = date;
 
   // 파일에서 JSON 데이터 읽기
   const scheduleJson = fs.readFileSync(filePath, 'utf8');
@@ -177,12 +187,13 @@ function returnInfo(filePath) {
     if (teachers[classId]) {
       teacherNames.push(teachers[classId].InterTeacher);
     } else {
-      teacherNames.push("N/A");
+      teacherNames.push("등록 안됨");
     }
   });
+
   return teacherNames;
 }
 
 app.listen(port, () => {
-  console.log(`서버가 http://localhost:${port} 에서 실행됨. 배포 일시: ` + new Date().toLocaleString());
+  console.log(`서버가 http://localhost:${port} 에서 실행됨. 배포 일시: ` + new Date().toLocaleString() + 'DayId' + (DateTime.local().weekday - 1));
 });
